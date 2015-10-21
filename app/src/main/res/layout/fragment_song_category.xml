@@ -1,0 +1,187 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.oilinux.allen.starkaraoke.ui.fragment.SongCategoryFragment">
+
+        <include
+            android:id="@+id/nav_bar"
+            layout="@layout/fragment_top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/nav_bar"
+            android:gravity="center"
+            tools:ignore="RtlSymmetry">
+
+            <!--<ImageView-->
+            <!--android:id="@+id/imageView"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignBottom="@+id/relativeLayout"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_alignTop="@+id/relativeLayout"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:src="@mipmap/song_category_ad"/>-->
+
+            <com.ktvdb.allen.satrok.gui.widget.AdPageView
+                android:id="@+id/adPageView"
+                android:layout_width="710dp"
+                android:layout_height="710dp"
+                app:actualImageScaleType="centerCrop"
+                app:failureImageScaleType="centerCrop"
+                app:placeholderImage="@drawable/ad_729_729"
+                app:viewAspectRatio="1.0"/>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/adPageView"
+                android:layout_alignTop="@+id/adPageView"
+                android:layout_marginLeft="5dp"
+                android:layout_toEndOf="@+id/adPageView"
+                android:layout_toRightOf="@+id/adPageView">
+
+                <com.ktvdb.allen.satrok.gui.widget.SongCategoryGrid
+                    android:id="@+id/btn_NianDai"
+                    android:layout_width="353dp"
+                    android:layout_height="232dp"
+                    android:layout_alignParentTop="true"
+                    android:background="#d37847"
+                    android:tag="@string/SongTypeTimes"
+                    app:categoryContent="@{@string/SongTypeTimes}"
+                    app:scg_cnName="年代"
+                    app:scg_enName="Time"
+                    app:scg_iconResID="@drawable/time_icon"/>
+
+                <com.ktvdb.allen.satrok.gui.widget.SongCategoryGrid
+                    android:id="@+id/btn_ZhengNengLiang"
+                    android:layout_width="457dp"
+                    android:layout_height="232dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toEndOf="@+id/btn_NianDai"
+                    android:background="#38b585"
+                    android:tag="@string/SongTypeZhengNengLiang"
+                    app:categoryContent="@{@string/SongTypeZhengNengLiang}"
+                    app:scg_cnName="正能量"
+                    app:scg_enName="Positive energy"
+                    app:scg_iconResID="@drawable/positive_energy_icon"/>
+
+                <com.ktvdb.allen.satrok.gui.widget.SongCategoryGrid
+                    android:id="@+id/btn_ShaiShi"
+                    android:layout_width="356dp"
+                    android:layout_height="469dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toEndOf="@+id/btn_ZhengNengLiang"
+                    android:background="@drawable/event_background"
+                    android:tag="@string/SongTypeSaiShi"
+                    app:categoryContent="@{@string/SongTypeSaiShi}"
+                    app:scg_cnName="赛事"
+                    app:scg_enName="Event"
+                    app:scg_iconResID="@drawable/event_icon"/>
+
+                <com.ktvdb.allen.satrok.gui.widget.SongCategoryGrid
+                    android:id="@+id/btn_QingGan"
+                    android:layout_width="417dp"
+                    android:layout_height="232dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/btn_NianDai"
+                    android:layout_marginTop="5dp"
+                    android:background="#2ba5a7"
+                    android:tag="@string/SongTypeQingGan"
+                    app:categoryContent="@{@string/SongTypeQingGan}"
+                    app:scg_cnName="情感"
+                    app:scg_enName="Event"
+                    app:scg_iconResID="@drawable/emotion_icon"/>
+
+                <com.ktvdb.allen.satrok.gui.widget.SongCategoryGrid
+                    android:id="@+id/btn_WuQu"
+                    android:layout_width="393dp"
+                    android:layout_height="232dp"
+                    android:layout_below="@+id/btn_ZhengNengLiang"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toEndOf="@+id/btn_QingGan"
+                    android:background="#e35f58"
+                    android:tag="@string/SongTypeWuQu"
+                    app:categoryContent="@{@string/SongTypeWuQu}"
+                    app:scg_cnName="舞曲"
+                    app:scg_enName="Dance"
+                    app:scg_iconResID="@drawable/dance_icon"/>
+
+                <com.ktvdb.allen.satrok.gui.widget.SongCategoryGrid
+                    android:id="@+id/btn_YingShi"
+                    android:layout_width="290dp"
+                    android:layout_height="232dp"
+                    android:layout_alignBottom="@+id/btn_WangLuo"
+                    android:layout_alignTop="@+id/btn_WangLuo"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toEndOf="@+id/btn_WangLuo"
+                    android:background="#a3b01f"
+                    android:tag="@string/SongTypeYingShi"
+                    app:categoryContent="@{@string/SongTypeYingShi}"
+                    app:scg_cnName="影视"
+                    app:scg_enName="Dance"
+                    app:scg_iconResID="@drawable/movies_icon"/>
+
+                <com.ktvdb.allen.satrok.gui.widget.SongCategoryGrid
+                    android:id="@+id/btn_WangLuo"
+                    android:layout_width="290dp"
+                    android:layout_height="232dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/btn_QingGan"
+                    android:layout_marginTop="5dp"
+                    android:background="#d2a252"
+                    android:tag="@string/SongTypeWangLuo"
+                    app:categoryContent="@{@string/SongTypeWangLuo}"
+                    app:scg_cnName="网络"
+                    app:scg_enName="Network"
+                    app:scg_iconResID="@drawable/network_icon"/>
+
+                <com.ktvdb.allen.satrok.gui.widget.SongCategoryGrid
+                    android:id="@+id/btn_DiYu"
+                    android:layout_width="290dp"
+                    android:layout_height="232dp"
+                    android:layout_alignTop="@+id/btn_YingShi"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toEndOf="@+id/btn_YingShi"
+                    android:background="#ae5a70"
+                    android:tag="@string/SongTypeDiYu"
+                    app:categoryContent="@{@string/SongTypeDiYu}"
+                    app:scg_cnName="地域"
+                    app:scg_enName="Region"
+                    app:scg_iconResID="@drawable/region_icon"/>
+
+                <com.ktvdb.allen.satrok.gui.widget.SongCategoryGrid
+                    android:id="@+id/btn_MinGe"
+                    android:layout_width="290dp"
+                    android:layout_height="232dp"
+                    android:layout_alignTop="@+id/btn_DiYu"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toEndOf="@+id/btn_DiYu"
+                    android:background="#ab9a83"
+                    android:tag="@string/SongTypeMinSu"
+                    app:categoryContent="@{@string/SongTypeMinSu}"
+                    app:scg_cnName="民俗"
+                    app:scg_enName="Folk songs"
+                    app:scg_iconResID="@drawable/folksongs_icon"/>
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</layout>

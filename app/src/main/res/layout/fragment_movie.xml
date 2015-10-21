@@ -1,0 +1,49 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/nav_bar"
+            layout="@layout/fragment_top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/nav_bar"
+            android:orientation="vertical"
+            android:paddingLeft="48dp"
+            android:paddingRight="48dp">
+
+            <RadioGroup
+                android:id="@+id/category_radioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_all"
+                    style="@style/Category_RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/rb_all"
+                    android:textStyle="bold"/>
+
+            </RadioGroup>
+
+            <com.malinskiy.superrecyclerview.SuperRecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>
+
+

@@ -1,0 +1,229 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.ktvdb.allen.satrok.utils.TimeUtils"/>
+
+        <variable
+            name="movie"
+            type="com.ktvdb.allen.satrok.model.Movie"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/nav_bar"
+            layout="@layout/fragment_top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="false"/>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nav_bar"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/info_layout"
+                android:layout_width="729dp"
+                android:layout_height="729dp"
+                android:clipChildren="false">
+
+                <com.ktvdb.allen.satrok.gui.widget.AdPageView
+                    android:id="@+id/adPageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:actualImageScaleType="centerCrop"
+                    app:failureImageScaleType="centerCrop"
+                    app:viewAspectRatio="1.0"/>
+            </FrameLayout>
+
+            <RelativeLayout
+                android:id="@+id/live_detail_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/info_layout"
+                android:layout_marginLeft="1dp"
+                android:layout_toRightOf="@+id/info_layout"
+                android:background="#96000000">
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="#c09f78"/>
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/live_img"
+                    android:layout_width="228dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="52dp"
+                    android:layout_marginTop="33dp"
+                    android:scaleType="centerCrop"
+                    app:placeholderImageScaleType="centerCrop"
+                    app:actualImageScaleType="centerCrop"
+                    app:failureImageScaleType="centerCrop"
+                    app:retryImageScaleType="centerCrop"
+                    app:placeholderImage="@drawable/singer_def"
+                    app:viewAspectRatio="0.75"/>
+
+                <TextView
+                    android:id="@+id/movie_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/live_img"
+                    android:layout_marginLeft="28dp"
+                    android:layout_marginRight="35dp"
+                    android:layout_toEndOf="@+id/live_img"
+                    android:lines="1"
+                    android:text="@{movie.name}"
+                    android:textSize="35sp"/>
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignLeft="@+id/movie_title"
+                    android:layout_alignRight="@+id/movie_title"
+                    android:layout_below="@+id/movie_title"
+                    android:layout_marginTop="24dp"
+                    android:background="#686868"/>
+
+                <LinearLayout
+                    android:id="@+id/info_layout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/view"
+                    android:layout_alignRight="@+id/view"
+                    android:layout_below="@+id/view"
+                    android:layout_marginTop="24dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/director"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text='@{"导演: "+ movie.director}'
+                        android:textColor="#686868"
+                        android:textSize="24sp"/>
+
+
+                    <TextView
+                        android:id="@+id/starring"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text='@{"主演: " + movie.starring}'
+                        android:textColor="#686868"
+                        android:textSize="24sp"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/info_layout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/info_layout1"
+                    android:layout_alignRight="@+id/info_layout1"
+                    android:layout_below="@+id/info_layout1"
+                    android:layout_marginTop="24dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/language"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text='@{"语种: " + (movie.language!=null?movie.language:"未知")}'
+                        android:textColor="#686868"
+                        android:textSize="24sp"/>
+
+
+                    <TextView
+                        android:id="@+id/typeNames"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text='@{"类别: " + "未知"}'
+                        android:textColor="#686868"
+                        android:textSize="24sp"/>
+
+
+                </LinearLayout>
+
+                <com.rey.material.widget.Button
+                    android:id="@+id/btn_YuYue"
+                    style="@style/FlatButtonRippleStyle"
+                    android:layout_width="180dp"
+                    android:layout_height="57dp"
+                    android:layout_alignStart="@+id/live_img"
+                    android:layout_below="@+id/live_img"
+                    android:layout_marginTop="30dp"
+                    android:background="#8a1b0c"
+                    android:text="预约播放"
+                    android:textSize="28sp"/>
+
+                <com.rey.material.widget.Button
+                    android:id="@+id/btn_play"
+                    style="@style/FlatButtonRippleStyle"
+                    android:layout_width="180dp"
+                    android:layout_height="57dp"
+                    android:layout_alignTop="@+id/btn_YuYue"
+                    android:layout_marginLeft="24dp"
+                    android:layout_toEndOf="@+id/btn_YuYue"
+                    android:background="#8a1b0c"
+                    android:text="立即播放"
+                    android:textSize="28sp"/>
+
+                <TextView
+                    android:id="@+id/info_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/btn_YuYue"
+                    android:layout_alignStart="@+id/btn_play"
+                    android:layout_below="@+id/btn_YuYue"
+                    android:layout_marginTop="24dp"
+                    android:text="影片详情"
+                    android:textColor="#686868"
+                    android:textSize="34sp"/>
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignLeft="@+id/btn_YuYue"
+                    android:layout_alignRight="@+id/view"
+                    android:layout_below="@+id/info_title"
+                    android:layout_marginTop="24dp"
+                    android:background="#686868"/>
+
+
+                <TextView
+                    android:id="@+id/info_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignStart="@+id/line"
+                    android:layout_below="@+id/line"
+                    android:layout_marginTop="24dp"
+                    android:text="@{movie.description}"
+                    android:textColor="#686868"
+                    android:textSize="24sp"/>
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>
+
+

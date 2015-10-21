@@ -1,0 +1,79 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/nav_bar"
+            layout="@layout/fragment_top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nav_bar"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+
+            <com.ktvdb.allen.satrok.gui.widget.AdPageView
+                android:id="@+id/adPageView"
+                android:layout_width="729dp"
+                android:layout_height="729dp"
+                app:actualImageScaleType="centerCrop"
+                app:failureImageScaleType="centerCrop"
+                app:placeholderImage="@drawable/ad_729_729"
+                app:viewAspectRatio="1.0"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/adPageView"
+                android:layout_toRightOf="@+id/adPageView"
+                android:orientation="vertical">
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none">
+
+                    <RadioGroup
+                        android:id="@+id/category_radioGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rb_all"
+                            style="@style/Category_RadioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="全部"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText"/>
+
+                    </RadioGroup>
+
+                </HorizontalScrollView>
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="#c09f78"/>
+
+                <com.malinskiy.superrecyclerview.SuperRecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:recyclerPadding="5dp"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">北星娱乐</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="text_current_play">正在播放:%1$s</string>
+    <string name="txt_next_play">下首播放:%1$s</string>
+    <string name="room_no">VIP-888</string>
+    <string name="selected">已选</string>
+    <string name="login">K歌之王</string>
+    <string-array name="word_count_cate">
+        <item>一字</item>
+        <item>二字</item>
+        <item>三字</item>
+        <item>四字</item>
+        <item>五字</item>
+        <item>六字</item>
+        <item>七字</item>
+        <item>八字</item>
+        <item>更多</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fragmnet_name">title</string>
+    <string name="title_activity_native_crash">NativeCrashActivity</string>
+    <string name="live_date">演出日期：</string>
+    <string name="rb_all">全部</string>
+    <string name="played">已播</string>
+    <string name="select">已选</string>
+
+    <string name="SongTypeTimes">GQSSND</string>
+    <string name="SongTypeZhengNengLiang">ZNLFL</string>
+    <string name="SongTypeSaiShi">ZYJMLX</string>
+    <string name="SongTypeQingGan">QGLX</string>
+    <string name="SongTypeWuQu">WQLX</string>
+    <string name="SongTypeWangLuo">WLLX</string>
+    <string name="SongTypeYingShi">YSFL</string>
+    <string name="SongTypeDiYu">DYDQ</string>
+    <string name="SongTypeMinSu">MGLX</string>
+    <string name="title_activity_init">InitActivity</string>
+    <string name="new_sng">新歌</string>
+    <string name="hot_song">热门</string>
+    <string name="singer_song">歌星</string>
+    <string name="pinyin">拼音</string>
+    <string name="yuzhong">语种</string>
+    <string name="zishu">字数</string>
+    <string name="fenlei">分类</string>
+    <string name="shouxie">手写</string>
+    <string name="newSongEnTitle">NEW</string>
+</resources>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="album"
+            type="com.ktvdb.allen.satrok.model.Album"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="2dp">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@color/song_list_item_normal"
+            app:contentPadding="0dp">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:placeholderImage="@drawable/singer_def"
+                    app:roundBottomLeft="false"
+                    app:roundBottomRight="false"
+                    app:roundTopLeft="true"
+                    app:roundTopRight="true"
+                    app:viewAspectRatio="1.0"
+                    app:albumItemImage="@{album.id}"/>
+
+                <TextView
+                    android:id="@+id/textName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:lines="2"
+                    android:padding="3dp"
+                    android:text="@{album.title}"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="20sp"/>
+
+            </LinearLayout>
+
+            <com.rey.material.widget.Button
+                android:id="@+id/mask"
+                style="@style/FlatButtonRippleStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+        </android.support.v7.widget.CardView>
+
+
+    </FrameLayout>
+</layout>

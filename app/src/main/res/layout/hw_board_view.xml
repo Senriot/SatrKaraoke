@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.ktvdb.allen.satrok.model.HWBoardViewModel"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <com.ktvdb.allen.satrok.gui.widget.PaintView
+            android:id="@+id/paintView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/relativeLayout"
+            android:layout_marginRight="3dp"
+            android:layout_toStartOf="@+id/relativeLayout"
+            android:background="@drawable/hw_background">
+
+        </com.ktvdb.allen.satrok.gui.widget.PaintView>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true">
+
+            <com.rey.material.widget.Button
+                android:id="@+id/clear_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/hw_clear_button_normal"/>
+
+            <TextView
+                android:id="@+id/result1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/clear_button"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/hw_result_button"
+                android:gravity="center"
+                android:text="@{String.valueOf(model.results[0])}"
+                android:textColor="@color/input_button_text_color"
+                android:textSize="36sp"/>
+
+            <TextView
+                android:id="@+id/result2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/result4"
+                android:layout_alignTop="@+id/result1"
+                android:background="@drawable/hw_result_button"
+                android:gravity="center"
+                android:text="@{String.valueOf(model.results[1])}"
+                android:textColor="@color/input_button_text_color"
+                android:textSize="36sp"/>
+
+            <TextView
+                android:id="@+id/result3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/result1"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/hw_result_button"
+                android:gravity="center"
+                android:text="@{String.valueOf(model.results[2])}"
+                android:textColor="@color/input_button_text_color"
+                android:textSize="36sp"/>
+
+            <TextView
+                android:id="@+id/result4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/clear_button"
+                android:layout_alignTop="@+id/result3"
+                android:background="@drawable/hw_result_button"
+                android:gravity="center"
+                android:text="@{String.valueOf(model.results[3])}"
+                android:textColor="@color/input_button_text_color"
+                android:textSize="36sp"/>
+
+            <TextView
+                android:id="@+id/result5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/result3"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/hw_result_button"
+                android:gravity="center"
+                android:text="@{String.valueOf(model.results[4])}"
+                android:textColor="@color/input_button_text_color"
+                android:textSize="36sp"/>
+
+            <TextView
+                android:id="@+id/result6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/result4"
+                android:layout_alignTop="@+id/result5"
+                android:background="@drawable/hw_result_button"
+                android:gravity="center"
+                android:text="@{String.valueOf(model.results[5])}"
+                android:textColor="@color/input_button_text_color"
+                android:textSize="36sp"/>
+
+            <TextView
+                android:id="@+id/result7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/result5"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/hw_result_button"
+                android:gravity="center"
+                android:text="@{String.valueOf(model.results[6])}"
+                android:textColor="@color/input_button_text_color"
+                android:textSize="36sp"/>
+
+            <TextView
+                android:id="@+id/result8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/result6"
+                android:layout_alignTop="@+id/result7"
+                android:background="@drawable/hw_result_button"
+                android:gravity="center"
+                android:text="@{String.valueOf(model.results[7])}"
+                android:textColor="@color/input_button_text_color"
+                android:textSize="36sp"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#cdaa80"
+            android:orientation="vertical">
+
+    <RadioButton
+        android:id="@+id/rb_shouxie"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/input_type_radiobutton"
+        android:button="@null"
+        android:checked="false"
+        android:gravity="center"
+        android:text="手写"
+        android:textSize="18sp"
+        android:textColor="@color/inputtype_radiobutton_text_color"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"/>
+
+    <RadioButton
+        android:id="@+id/rb_pinyin"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="@drawable/input_type_radiobutton"
+        android:button="@null"
+        android:checked="true"
+        android:gravity="center"
+        android:text="@string/pinyin"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"
+        android:textColor="@color/inputtype_radiobutton_text_color"
+        android:layout_marginBottom="10dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:id="@+id/imageView2"
+        android:src="@drawable/ic_input_type"
+        android:layout_marginBottom="10dp"
+        android:scaleType="center"/>
+
+</RadioGroup>

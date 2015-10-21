@@ -1,0 +1,252 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.ktvdb.allen.satrok.gui.fragment.MainFragment"/>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        tools:ignore="ContentDescription">
+
+        <com.ktvdb.allen.satrok.gui.widget.StarCardView
+            android:id="@+id/card_kge"
+            android:layout_width="720dp"
+            android:layout_height="285dp"
+            android:background="@drawable/card_kege_background"
+            app:sc_enName="Karaoke"
+            app:sc_name="K歌">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="20dp"
+                android:divider="@drawable/line"
+                android:dividerPadding="10dp"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:showDividers="middle">
+
+
+                <com.rey.material.widget.Button
+                    android:id="@+id/subButtonNewSong"
+                    style="@style/FlatButtonRippleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:shadowColor="#818285"
+                    android:shadowDx="1"
+                    android:shadowDy="-1"
+                    android:shadowRadius="1"
+                    android:text="@string/new_sng"
+                    android:textColor="#f0f0f0"
+                    android:textSize="24sp"/>
+
+                <com.rey.material.widget.Button
+                    android:id="@+id/subButtonHot"
+                    style="@style/FlatButtonRippleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:shadowColor="#818285"
+                    android:shadowDx="1"
+                    android:shadowDy="-1"
+                    android:shadowRadius="1"
+                    android:text="@string/hot_song"
+                    android:textColor="#f0f0f0"
+                    android:textSize="24sp"/>
+
+                <com.rey.material.widget.Button
+                    android:id="@+id/subButtonSinger"
+                    style="@style/FlatButtonRippleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:shadowColor="#818285"
+                    android:shadowDx="1"
+                    android:shadowDy="-1"
+                    android:shadowRadius="1"
+                    android:text="@string/singer_song"
+                    android:textColor="#f0f0f0"
+                    android:textSize="24sp"/>
+
+                <com.rey.material.widget.Button
+                    android:id="@+id/subButtonPinyin"
+                    style="@style/FlatButtonRippleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:shadowColor="#818285"
+                    android:shadowDx="1"
+                    android:shadowDy="-1"
+                    android:shadowRadius="1"
+                    android:text="@string/pinyin"
+                    android:textColor="#f0f0f0"
+                    android:textSize="24sp"/>
+
+                <com.rey.material.widget.Button
+                    android:id="@+id/subButtonLanguage"
+                    style="@style/FlatButtonRippleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:shadowColor="#818285"
+                    android:shadowDx="1"
+                    android:shadowDy="-1"
+                    android:shadowRadius="1"
+                    android:text="@string/yuzhong"
+                    android:textColor="#f0f0f0"
+                    android:textSize="24sp"/>
+
+                <com.rey.material.widget.Button
+                    android:id="@+id/subButtonWords"
+                    style="@style/FlatButtonRippleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:shadowColor="#818285"
+                    android:shadowDx="1"
+                    android:shadowDy="-1"
+                    android:shadowRadius="1"
+                    android:text="@string/zishu"
+                    android:textColor="#f0f0f0"
+                    android:textSize="24sp"/>
+
+                <com.rey.material.widget.Button
+                    android:id="@+id/subButtonCategory"
+                    style="@style/FlatButtonRippleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:shadowColor="#818285"
+                    android:shadowDx="1"
+                    android:shadowDy="-1"
+                    android:shadowRadius="1"
+                    android:text="@string/fenlei"
+                    android:textColor="#f0f0f0"
+                    android:textSize="24sp"/>
+
+                <com.rey.material.widget.Button
+                    android:id="@+id/subButtonShouXie"
+                    style="@style/FlatButtonRippleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:shadowColor="#818285"
+                    android:shadowDx="1"
+                    android:shadowDy="-1"
+                    android:shadowRadius="1"
+                    android:text="@string/shouxie"
+                    android:textColor="#f0f0f0"
+                    android:textSize="24sp"/>
+            </LinearLayout>
+
+            <cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager
+                android:id="@+id/recommend_album"
+                android:layout_width="176dp"
+                android:layout_height="176dp"
+                android:layout_gravity="right|top"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"/>
+        </com.ktvdb.allen.satrok.gui.widget.StarCardView>
+
+        <com.ktvdb.allen.satrok.gui.widget.StarCardView
+            android:id="@+id/card_movie"
+            android:layout_width="430dp"
+            android:layout_height="285dp"
+            android:layout_below="@+id/card_kge"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/card_WeiHuDong"
+            android:background="@drawable/card_movie_background"
+            app:sc_enName="Statellite Movie"
+            app:sc_icon="@drawable/ic_movie"
+            app:sc_name="卫星影院"/>
+
+        <com.ktvdb.allen.satrok.gui.widget.StarCardView
+            android:id="@+id/card_WeiHuDong"
+            android:layout_width="285dp"
+            android:layout_height="285dp"
+            android:layout_below="@+id/card_kge"
+            android:layout_marginTop="5dp"
+            android:background="#2ca8a9"
+            app:sc_enName="Interaction"
+            app:sc_icon="@drawable/ic_weihudong"
+            app:sc_name="微互动"/>
+
+
+        <com.ktvdb.allen.satrok.gui.widget.StarCardView
+            android:id="@+id/card_game"
+            android:layout_width="285dp"
+            android:layout_height="285dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/card_kge"
+            android:background="@drawable/card_game_background"
+            app:sc_enName="Game"
+            app:sc_icon="@drawable/ic_game"
+            app:sc_name="游戏"/>
+
+
+        <com.ktvdb.allen.satrok.gui.widget.StarCardView
+            android:id="@+id/card_food"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/card_game"
+            android:background="#c49647"
+            app:sc_enName="Bite and sup"
+            app:sc_icon="@drawable/ic_food"
+            app:sc_name="餐饮"
+            app:sc_pading="10"/>
+
+        <com.ktvdb.allen.satrok.gui.widget.StarCardView
+            android:id="@+id/card_bill"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_below="@+id/card_food"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/card_game"
+            android:background="#ab9983"
+            app:sc_enName="Bill"
+            app:sc_icon="@drawable/ic_bill"
+            app:sc_name="账单"
+            app:sc_pading="10"/>
+
+
+        <com.ktvdb.allen.satrok.gui.widget.StarCardView
+            android:id="@+id/card_live"
+            android:layout_width="430dp"
+            android:layout_height="285dp"
+            android:layout_alignLeft="@+id/card_game"
+            android:layout_alignTop="@+id/card_movie"
+            android:layout_toRightOf="@+id/card_movie"
+            android:background="#cb5a73"
+            app:sc_enName="Statellite Live"
+            app:sc_icon="@drawable/ic_live"
+            app:sc_name="卫星直播"/>
+
+        <FrameLayout
+            android:layout_width="577dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/card_live"
+            android:layout_alignTop="@+id/card_food"
+            android:layout_marginLeft="5dp"
+            android:layout_toEndOf="@+id/card_food">
+
+            <cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager
+                android:id="@+id/imageAdPage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </FrameLayout>
+    </RelativeLayout>
+</layout>

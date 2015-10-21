@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.ktvdb.allen.satrok.bind.PlayHubModel"/>
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/playerHud"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/singer_avatar"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:padding="10dp"
+            app:imageUrl="@{model.imageUrl}"
+            app:placeholderImage="@drawable/singer_def"
+            app:placeholderImageScaleType="focusCrop"
+            app:actualImageScaleType="focusCrop"
+            app:failureImageScaleType="focusCrop"
+            app:roundingBorderColor="@color/md_blue_grey_100"
+            app:roundingBorderWidth="1dp"
+            />
+
+        <TextView
+            android:id="@+id/media_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/singer_avatar"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/singer_avatar"
+            android:maxWidth="300dp"
+            android:singleLine="true"
+            android:text="@{model.songName}"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/txtSingerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/media_name"
+            android:layout_below="@+id/media_name"
+            android:layout_marginTop="5dp"
+            android:maxWidth="300dp"
+            android:singleLine="true"
+            android:text="@{model.singerName}"
+            android:textColor="#e6ccab"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <SeekBar
+            android:id="@+id/player_seekbar"
+            android:layout_width="300dip"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtSingerName"
+            android:layout_toRightOf="@+id/singer_avatar"
+            android:focusable="true"
+            android:indeterminate="false"
+            android:maxHeight="3dip"
+            android:minHeight="3dip"
+            android:progressDrawable="@drawable/po_seekbar"
+            android:thumb="@drawable/seekbar_thumb"/>
+
+
+        <TextView
+            android:id="@+id/player_overlay_time"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/player_seekbar"
+            android:layout_below="@+id/player_seekbar"
+            android:layout_marginLeft="15dp"
+            android:gravity="left"
+            android:text="--:--"
+            android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/player_overlay_length"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/player_seekbar"
+            android:layout_below="@+id/player_seekbar"
+            android:layout_marginRight="20dp"
+            android:gravity="right"
+            android:text="--:--"
+            android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+            android:textSize="12sp"/>
+
+    </RelativeLayout>
+
+</layout>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<data>-->
+
+    <!--<variable-->
+    <!--name="model"-->
+    <!--type="com.ktvdb.allen.satrok.model.KeyboardModel"/>-->
+    <!--</data>-->
+
+    <FrameLayout
+        android:id="@+id/rootView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="1076dp"
+            android:layout_height="485dp"
+            android:layout_gravity="left|bottom"
+            android:background="@drawable/input_view_background"
+            android:orientation="vertical"
+            android:padding="38dp"
+            android:layout_marginBottom="100dp">
+
+
+            <LinearLayout
+                android:id="@+id/input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="45dp"
+                android:layout_marginRight="45dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/input_edit_backbround"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <EditText
+                    android:id="@+id/inputText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/transparent"
+                    android:gravity="center_vertical"
+                    android:inputType="none"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:textColor="#da9714"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:visibility="visible"/>
+
+                <ImageButton
+                    android:id="@+id/btn_del_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_del_all"
+                    android:visibility="invisible"/>
+            </LinearLayout>
+
+            <android.inputmethodservice.KeyboardView
+                android:id="@+id/keyboard_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/input"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:background="@color/transparent"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:keyBackground="@drawable/input_button_background"
+                android:keyPreviewHeight="100dp"
+                android:keyPreviewLayout="@layout/key_preview_layout"
+                android:keyPreviewOffset="56dp"
+                android:keyTextColor="@color/input_button_text_color"
+                android:keyTextSize="30sp"
+                android:visibility="visible"/>
+
+
+            <com.ktvdb.allen.satrok.gui.widget.HWBoardView
+                android:id="@+id/hwBoardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:visibility="gone"/>
+
+            <ImageButton
+                android:id="@+id/inputType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="5dp"
+                android:background="@color/transparent"
+                android:src="@drawable/input_language_select"/>
+        </RelativeLayout>
+    </FrameLayout>
+</layout>
+
+

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="1076dp"
+                android:layout_height="485dp"
+                android:background="@drawable/input_view_background"
+                android:orientation="vertical"
+                android:padding="38dp">
+
+
+    <android.inputmethodservice.KeyboardView
+        android:id="@+id/keyboard_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/input"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@color/transparent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:keyBackground="@drawable/input_button_background"
+        android:keyPreviewHeight="100dp"
+        android:keyPreviewLayout="@layout/key_preview_layout"
+        android:keyPreviewOffset="56dp"
+        android:keyTextColor="@color/input_button_text_color"
+        android:keyTextSize="30sp"
+        android:visibility="visible"/>
+
+
+    <com.ktvdb.allen.satrok.gui.widget.HWBoardView
+        android:id="@+id/hwBoardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:visibility="gone"/>
+
+    <ImageButton
+        android:id="@+id/inputType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="5dp"
+        android:background="@color/transparent"
+        android:src="@drawable/input_language_select"/>
+
+    <!--<com.ktvdb.allen.satrok.gui.widget.HwBoard-->
+    <!--android:id="@+id/hwboard_view"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"/>-->
+</RelativeLayout>

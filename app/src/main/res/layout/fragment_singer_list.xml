@@ -1,0 +1,95 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.oilinux.allen.starkaraoke.ui.fragment.LevelBaseFragment">
+
+
+        <include
+            android:id="@+id/nav_bar"
+            layout="@layout/fragment_top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nav_bar"
+            android:gravity="center_vertical">
+
+
+            <com.ktvdb.allen.satrok.gui.widget.AdPageView
+                android:id="@+id/adImagePage"
+                android:layout_width="729dp"
+                android:layout_height="729dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                app:actualImageScaleType="centerCrop"
+                app:failureImageScaleType="centerCrop"
+                app:placeholderImage="@drawable/ad_729_729"
+                app:viewAspectRatio="1.0"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/adImagePage"
+                android:layout_toRightOf="@+id/adImagePage"
+                android:orientation="vertical">
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none">
+
+                    <RadioGroup
+                        android:id="@+id/category_radioGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rb_all"
+                            style="@style/Category_RadioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="全部"
+                            android:textStyle="bold"/>
+
+                    </RadioGroup>
+
+                </HorizontalScrollView>
+
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="#c09f78"/>
+
+                <com.malinskiy.superrecyclerview.SuperRecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:recyclerClipToPadding="true"
+                    app:recyclerPadding="5dp"/>
+
+
+            </LinearLayout>
+        </RelativeLayout>
+        <com.rey.material.widget.ImageButton
+            android:id="@+id/btnKeyboard"
+            style="@style/FlatButtonRippleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="472dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/keyboard_button_open"
+            android:visibility="visible"/>
+    </RelativeLayout>
+</layout>

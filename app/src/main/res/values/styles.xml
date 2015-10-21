@@ -1,0 +1,117 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="colorPrimary">@color/theme_dialer_primary</item>
+        <item name="colorPrimaryDark">@color/theme_dialer_high</item>
+        <item name="colorAccent">#de3c48</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="masterFragmentTheme">@style/AppTheme.MasterFragment.Transparent</item>
+        <item name="android:popupMenuStyle">@style/popupMenuStyle</item>
+    </style>
+
+    <style name="popupMenuStyle" parent="@android:style/Widget.PopupMenu">
+        <item name="android:popupBackground">#cca97f</item>
+    </style>
+    <!-- Host activity theme. -->
+    <style name="AppTheme.HostActivity">
+        <item name="android:windowBackground">@drawable/main_background</item>
+    </style>
+
+
+    <!-- Default MasterFragment's theme. -->
+    <style name="AppTheme.MasterFragment">
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <!-- MasterFragment's theme, transparent -->
+    <style name="AppTheme.MasterFragment.Transparent">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="RaiseWaveButtonRippleStyle" parent="Material.Drawable.Ripple.Wave.Light">
+        <item name="rd_rippleColor">#66212121</item>
+    </style>
+
+
+    <style name="Category_RadioButton">
+        <item name="android:button">@null</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/category_radiobutton_text_color</item>
+        <item name="android:paddingLeft">25dp</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingRight">25dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:background">@drawable/category_radiobutton</item>
+    </style>
+
+    <style name="nav_button_style" parent="Material.Drawable.Ripple.Touch.Light">
+        <item name="android:textSize">22sp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/md_grey_900</item>
+    </style>
+
+    <style name="nav_button_style.level" parent="nav_button_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@drawable/nav_level</item>
+    </style>
+
+    <style name="RunTextStyle">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">@color/md_grey_600</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">-1</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="DefaultSeekBar" parent="android:Widget">
+        <item name="dsb_indicatorTextAppearance">@style/DefaultIndicatorTextAppearance</item>
+        <item name="dsb_progressColor">@color/dsb_progress_color_list</item>
+        <item name="dsb_trackColor">@color/dsb_track_color_list</item>
+        <item name="dsb_rippleColor">@color/dsb_ripple_color_list</item>
+        <item name="dsb_indicatorColor">@color/md_teal_50</item>
+        <item name="dsb_indicatorElevation">4dp</item>
+        <item name="dsb_mirrorForRtl">true</item>
+    </style>
+
+    <style name="DefaultIndicatorTextAppearance" parent="android:TextAppearance.Small">
+        <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
+        <item name="android:padding">6dp</item>
+    </style>
+
+    <style name="FlatButtonRippleStyle" parent="Material.Drawable.Ripple.Touch.Light">
+        <item name="android:background">@null</item>
+        <item name="rd_cornerRadius">4dp</item>
+    </style>
+
+    <style name="song_swip_button_style" parent="Material.Drawable.Ripple.Touch.Light">
+        <item name="android:background">@null</item>
+        <item name="rd_cornerRadius">0dp</item>
+        <item name="rd_backgroundColor">#a67c4c</item>
+        <item name="rd_rippleColor">#a67c4c</item>
+    </style>
+
+    <style name="input_button_style" parent="FlatButtonRippleStyle">
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@drawable/input_button_background</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/input_button_text_color</item>
+    </style>
+
+    <style name="SeekArc">
+        <item name="arcColor">@color/progress_gray_dark</item>
+    </style>
+
+    <style name="SeekArcLight">
+        <item name="arcColor">@color/progress_gray</item>
+    </style>
+</resources>

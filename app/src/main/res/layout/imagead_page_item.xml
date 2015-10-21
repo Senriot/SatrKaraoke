@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="advertisement"
+            type="com.ktvdb.allen.satrok.model.Advertisement"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:adImage="@{advertisement.fileName}"
+            app:viewAspectRatio="1.0"/>
+
+        <TextView
+            android:id="@+id/movie_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:background="#90000000"
+            android:gravity="left|center"
+            android:maxLines="2"
+            android:text="@{advertisement.name}"
+            android:textColor="@color/white"
+            android:textSize="32sp"
+            android:padding="15dp"/>
+    </FrameLayout>
+</layout>
+

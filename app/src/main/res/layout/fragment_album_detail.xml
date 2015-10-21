@@ -1,0 +1,130 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="album"
+            type="com.ktvdb.allen.satrok.model.Album"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/nav_bar"
+            layout="@layout/fragment_top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="false"/>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nav_bar"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/info_layout"
+                android:layout_width="729dp"
+                android:layout_height="729dp"
+                android:clipChildren="false">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/singer_avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:albumBigImage="@{album.id}"
+                    app:placeholderImage="@drawable/default_ad"
+                    app:viewAspectRatio="1.0"/>
+
+                <RelativeLayout
+                    android:id="@+id/sing_info_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:background="#64000000">
+
+                    <TextView
+                        android:id="@+id/title_name"
+                        style="@style/RunTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_margin="5dp"
+                        android:text='@{"专辑：" + album.title}'
+                        android:textSize="20sp"/>
+
+                    <TextView
+                        android:id="@+id/title_area"
+                        style="@style/RunTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/title_name"
+                        android:layout_margin="5dp"
+                        android:text='@{"语种：" + album.language}'
+                        android:textSize="20sp"/>
+
+                    <TextView
+                        android:id="@+id/title_des"
+                        style="@style/RunTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/title_area"
+                        android:layout_margin="5dp"
+                        android:text="简介："
+                        android:textSize="20sp"/>
+
+                    <TextView
+                        android:id="@+id/album_info"
+                        style="@style/RunTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/title_area"
+                        android:layout_margin="5dp"
+                        android:layout_toEndOf="@+id/title_des"
+                        android:maxLines="10"
+                        android:scrollbars="vertical"
+                        android:singleLine="false"
+                        android:text="@{album.info}"
+                        android:textSize="20sp"/>
+
+                </RelativeLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/info_layout"
+                android:layout_toRightOf="@+id/info_layout">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/background"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:albumBlurImage="@{album.id}"/>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="#c09f78"/>
+
+                <com.malinskiy.superrecyclerview.SuperRecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:recyclerClipToPadding="false"/>
+
+            </FrameLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>

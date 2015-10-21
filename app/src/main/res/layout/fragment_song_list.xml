@@ -1,0 +1,119 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:id="@+id/nav_bar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="15dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="15dp">
+
+            <com.rey.material.widget.Button
+                android:id="@+id/go_back_main"
+                style="@style/nav_button_style"
+                android:layout_width="88dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_nav_main"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nav_bar"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/adPanle"
+                android:layout_width="729dp"
+                android:layout_height="729dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true">
+
+                <com.ktvdb.allen.satrok.gui.widget.AdPageView
+                    android:id="@+id/adPageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:actualImageScaleType="centerCrop"
+                    app:failureImageScaleType="centerCrop"
+                    app:placeholderImage="@drawable/ad_729_729"
+                    app:viewAspectRatio="1.0"/>
+
+            </FrameLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/adPanle"
+                android:layout_marginLeft="1dp"
+                android:layout_toRightOf="@+id/adPanle"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="none">
+
+                        <RadioGroup
+                            android:id="@+id/category_radioGroup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/rb_all"
+                                style="@style/Category_RadioButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checked="true"
+                                android:text="全部"
+                                android:textStyle="bold"/>
+
+                        </RadioGroup>
+
+                    </HorizontalScrollView>
+
+                </LinearLayout>
+
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="#c09f78"/>
+
+                <com.malinskiy.superrecyclerview.SuperRecyclerView
+                    android:id="@+id/listView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <com.rey.material.widget.ImageButton
+            android:id="@+id/btnKeyboard"
+            style="@style/FlatButtonRippleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="472dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/keyboard_button_open"
+            android:visibility="visible"/>
+    </RelativeLayout>
+</layout>

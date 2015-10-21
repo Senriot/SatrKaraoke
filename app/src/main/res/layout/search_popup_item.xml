@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#c9c9c9"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.ktvdb.allen.satrok.swipe.SwipeLayout
+                android:id="@id/recyclerview_swipe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@color/song_menu_background"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <com.ktvdb.allen.satrok.gui.widget.SquareButton
+                        android:id="@+id/btn_top"
+                        style="@style/song_swip_button_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_ding"
+                        android:padding="15dp"/>
+
+                    <com.ktvdb.allen.satrok.gui.widget.SquareButton
+                        android:id="@+id/btn_delete"
+                        style="@style/song_swip_button_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_delete"
+                        android:padding="15dp"/>
+
+                    <com.ktvdb.allen.satrok.gui.widget.SquareButton
+                        android:id="@+id/btn_favorite"
+                        style="@style/song_swip_button_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_shou_cang"
+                        android:padding="15dp"/>
+
+                </LinearLayout>
+
+                <com.ktvdb.allen.satrok.gui.widget.ListItemLinearLayout
+                    android:id="@+id/content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/img"
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        app:actualImageScaleType="focusCrop"
+                        app:placeholderImage="@drawable/singer_def"
+                        app:roundingBorderColor="#af9381"
+                        app:roundingBorderWidth="1dp"
+                        app:viewAspectRatio="1.0"/>
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:textColor="#040101"
+                        android:textSize="20sp"
+                        android:maxWidth="250dp"/>
+
+                    <LinearLayout
+                        android:id="@+id/song_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/textFlag"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_weight="1"
+                            android:tag="Hover"
+                            android:textColor="@color/song_list_item_text_color"
+                            android:textSize="16sp"
+                            android:textStyle="italic"
+                            android:visibility="invisible"
+                            tools:ignore="RtlHardcoded"/>
+
+                        <TextView
+                            android:id="@+id/singer_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_margin="20dp"
+                            android:singleLine="true"
+                            android:textColor="#775506"
+                            android:textSize="16sp"
+                            android:maxWidth="100dp"
+                            />
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="fill_parent"
+                            android:layout_marginBottom="-3dp"
+                            android:layout_marginTop="-1dp"
+                            android:background="@color/song_menu_background"
+                            android:scaleType="center"
+                            android:src="@drawable/ic_arrow"/>
+                    </LinearLayout>
+
+
+                </com.ktvdb.allen.satrok.gui.widget.ListItemLinearLayout>
+            </com.ktvdb.allen.satrok.swipe.SwipeLayout>
+
+
+        </LinearLayout>
+
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/search_list_background"/>
+
+        <!--<com.rey.material.widget.Button-->
+        <!--android:id="@+id/mask"-->
+        <!--style="@style/FlatButtonRippleStyle"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--android:layout_above="@+id/line"/>-->
+
+    </LinearLayout>
+</layout>

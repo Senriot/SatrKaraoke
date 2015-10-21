@@ -1,0 +1,83 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="com.ktvdb.allen.satrok.gui.MainActivity">
+
+    <data>
+
+        <variable
+            name="p"
+            type="com.ktvdb.allen.satrok.presentation.MainPresentation"/>
+
+        <variable
+            name="model"
+            type="com.ktvdb.allen.satrok.bind.PlayHubModel"/>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/main_background">
+
+        <include
+            android:id="@+id/topBar"
+            layout="@layout/main_top_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            bind:p="@{p}"
+            bind:model="@{model}"/>
+
+
+        <FrameLayout
+            android:id="@+id/main_container"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottomBar"
+            android:layout_below="@+id/topBar">
+
+
+        </FrameLayout>
+
+        <!--<RelativeLayout-->
+        <!--android:id="@+id/rootView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_above="@+id/bottomBar"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_below="@+id/topBar"-->
+        <!--android:layout_gravity="center_horizontal|bottom">-->
+
+        <!--&lt;!&ndash;<android.inputmethodservice.KeyboardView&ndash;&gt;-->
+        <!--&lt;!&ndash;android:id="@+id/keyboard_view"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="fill_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_alignParentBottom="true"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:background="@drawable/input_view_background"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:focusable="true"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:focusableInTouchMode="true"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:keyBackground="@drawable/input_button_background"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:keyPreviewHeight="100dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:keyPreviewLayout="@layout/key_preview_layout"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:keyPreviewOffset="110dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:keyTextColor="@color/input_button_text_color"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:keyTextSize="30sp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:padding="50dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:visibility="visible"/>&ndash;&gt;-->
+
+        <!--</RelativeLayout>-->
+
+        <include
+            android:id="@+id/bottomBar"
+            layout="@layout/main_bottom_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="112dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            bind:p="@{p}"
+            bind:model="@{model}"/>
+
+    </RelativeLayout>
+</layout>

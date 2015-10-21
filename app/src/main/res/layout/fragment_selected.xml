@@ -1,0 +1,79 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.oilinux.allen.starkaraoke.ui.fragment.SelectedFragment">
+
+        <include
+            android:id="@+id/nav_bar"
+            layout="@layout/fragment_top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nav_bar"
+            android:gravity="center_vertical">
+
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/ad_image"
+                android:layout_width="729dp"
+                android:layout_height="wrap_content"
+                app:placeholderImage="@drawable/ad_729_729"
+                app:placeholderImageScaleType="focusCrop"
+                app:viewAspectRatio="1"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/ad_image"
+                android:layout_toRightOf="@+id/ad_image"
+                android:orientation="vertical">
+
+                <RadioGroup
+                    android:id="@+id/category_radioGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_selected"
+                        style="@style/Category_RadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/select"
+                        android:textStyle="bold"/>
+
+                    <RadioButton
+                        android:id="@+id/rb_played"
+                        style="@style/Category_RadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="@string/played"
+                        android:textStyle="bold"/>
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/line"
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="#c09f78"/>
+
+                <com.malinskiy.superrecyclerview.SuperRecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>

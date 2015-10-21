@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="discreteSeekBarStyle" format="reference"/>
+    <declare-styleable name="DiscreteSeekBar">
+        <attr name="dsb_min" format="integer|dimension"/>
+        <attr name="dsb_max" format="integer|dimension"/>
+        <attr name="dsb_value" format="integer|dimension"/>
+        <attr name="dsb_mirrorForRtl" format="boolean"/>
+        <attr name="dsb_allowTrackClickToDrag" format="boolean"/>
+        <attr name="dsb_progressColor" format="color|reference"/>
+        <attr name="dsb_trackColor" format="color|reference"/>
+        <attr name="dsb_indicatorTextAppearance" format="reference"/>
+        <attr name="dsb_indicatorColor" format="color|reference"/>
+        <attr name="dsb_indicatorElevation" format="dimension"/>
+        <attr name="dsb_indicatorFormatter" format="string|reference"/>
+        <attr name="dsb_rippleColor" format="color|reference"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="NewokCardView">
+        <attr name="cardImage" format="integer|reference"/>
+        <attr name="cardTitle" format="string"/>
+        <attr name="isSquare" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="VolumeControlView">
+        <attr name="v_icon" format="integer|reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="SeekArc">
+        <attr name="thumb" format="reference"/>
+        <attr name="thumbOffset" format="dimension"/>
+        <attr name="max" format="integer"/>
+        <attr name="progressWidth" format="dimension"/>
+        <attr name="arcWidth" format="dimension"/>
+        <attr name="progress" format="integer"/>
+        <attr name="rotation" format="integer"/>
+        <attr name="startAngle" format="integer"/>
+        <attr name="sweepAngle" format="integer"/>
+        <attr name="arcColor" format="color"/>
+        <attr name="progressColor" format="color"/>
+        <attr name="roundEdges" format="boolean"/>
+        <attr name="touchInside" format="boolean"/>
+        <attr name="clockwise" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="SeekArcTheme">
+        <attr name="seekArcStyle" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="PxBlurringView">
+        <attr name="blurRadius" format="integer"/>
+        <attr name="downsampleFactor" format="integer"/>
+        <attr name="overlayColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="ScrollTextView">
+        <attr name="stColor" format="color|reference"/>
+        <attr name="stTextSize" format="integer|dimension"/>
+        <attr name="stScrollSpeed" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="StarCardView">
+        <attr name="sc_name" format="string|reference"/>
+        <attr name="sc_enName" format="string|reference"/>
+        <attr name="sc_icon" format="integer|reference"/>
+        <attr name="sc_pading" format="integer|dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="PopupButton">
+        <attr name="popButtonIcon" format="integer|reference"/>
+        <attr name="popButtonText" format="string|reference"/>
+        <attr name="popButtonBackground" format="integer|reference"/>
+        <attr name="popButtonIconBackground" format="integer|reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="SwipeLayout">
+        <attr name="drag_edge">
+            <flag name="left" value="1"/>
+            <flag name="right" value="2"/>
+            <flag name="top" value="4"/>
+            <flag name="bottom" value="8"/>
+        </attr>
+        <attr name="leftEdgeSwipeOffset" format="dimension"/>
+        <attr name="rightEdgeSwipeOffset" format="dimension"/>
+        <attr name="topEdgeSwipeOffset" format="dimension"/>
+        <attr name="bottomEdgeSwipeOffset" format="dimension"/>
+        <attr name="show_mode" format="enum">
+            <enum name="lay_down" value="0"/>
+            <enum name="pull_out" value="1"/>
+        </attr>
+        <attr name="clickToClose" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="SongCategoryGrid">
+        <attr name="scg_cnName" format="string|reference"/>
+        <attr name="scg_enName" format="string|reference"/>
+        <attr name="scg_iconResID" format="integer|reference"/>
+        <attr name="scg_content" format="string|reference"/>
+    </declare-styleable>
+</resources>

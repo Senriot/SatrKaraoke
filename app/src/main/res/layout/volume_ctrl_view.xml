@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:layout_width="220dp"
+        android:layout_height="140dp">
+
+        <FrameLayout
+            android:id="@+id/fan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/bg"
+                android:layout_width="fill_parent"
+                android:layout_height="130dp"
+                android:layout_gravity="center_horizontal"
+                android:paddingLeft="18dp"
+                android:paddingRight="20dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/volume_background"/>
+
+            <com.ktvdb.allen.satrok.gui.widget.SeekArc
+                android:id="@+id/seekArc"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_gravity="center_horizontal"
+                android:padding="43dp"
+                app:arcColor="#b99a6c"
+                app:arcWidth="3dp"
+                app:max="15"
+                app:progress="50"
+                app:progressColor="@color/md_red_900"
+                app:rotation="180"
+                app:startAngle="78"
+                app:sweepAngle="205"
+                app:touchInside="true"/>
+
+            <com.rey.material.widget.Button
+                android:id="@+id/btn_jian"
+                style="@style/Material.Widget.FloatingActionButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="left|bottom"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="30dp"
+                android:background="@color/transparent"
+                android:text="-"
+                android:textSize="30sp"/>
+
+            <com.rey.material.widget.Button
+                android:id="@+id/btn_jia"
+                style="@style/Material.Widget.FloatingActionButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom|right"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="25dp"
+                android:background="@color/transparent"
+                android:text="+"
+                android:textSize="30sp"/>
+
+        </FrameLayout>
+    </FrameLayout>
+
+</merge>
