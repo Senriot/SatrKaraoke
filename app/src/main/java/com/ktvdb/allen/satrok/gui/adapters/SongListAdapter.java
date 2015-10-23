@@ -19,6 +19,7 @@ import com.ktvdb.allen.satrok.service.RestService;
 import com.ktvdb.allen.satrok.swipe.SwipeLayout;
 import com.ktvdb.allen.satrok.swipe.adapters.RecyclerSwipeAdapter;
 import com.ktvdb.allen.satrok.swipe.util.Attributes;
+import com.ktvdb.allen.satrok.utils.BindingUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -74,28 +75,7 @@ public class SongListAdapter extends RecyclerSwipeAdapter<SongListAdapter.ViewHo
             mItemManger.closeItem(viewHolder.getLayoutPosition());
             mPlayer.AddFistMedia(list.get(viewHolder.getLayoutPosition()));
         });
-        viewHolder.binding.btnDetail.setOnClickListener(v -> {
-            final Song model = getItem(viewHolder.getLayoutPosition());
-            final SongInfoPanelBinding infoPanelBinding = DataBindingUtil.inflate(
-                    LayoutInflater.from(v.getContext()),
-                    R.layout.song_info_panel,
-                    null,
-                    false);
-            infoPanelBinding.setSong(model);
-            int width = View.MeasureSpec.makeMeasureSpec(0,
-                                                         View.MeasureSpec.UNSPECIFIED);
-            int height = View.MeasureSpec.makeMeasureSpec(0,
-                                                          View.MeasureSpec.UNSPECIFIED);
-            infoPanelBinding.getRoot().measure(width, height);
-            PopupWindow pw = new PopupWindow(v.getContext());
-            pw.setFocusable(true);
-            pw.setWidth(infoPanelBinding.getRoot().getMeasuredWidth());
-            pw.setHeight(infoPanelBinding.getRoot().getMeasuredHeight());
-            pw.setContentView(infoPanelBinding.getRoot());
-            pw.setBackgroundDrawable(new BitmapDrawable());
-            pw.update();
-            pw.showAsDropDown(v, -v.getWidth(), -v.getHeight(), Gravity.RIGHT);
-        });
+        viewHolder.binding.btnDetail.setOnClickListener(v -> BindingUtils.showSongDetail(v,list.get(viewHolder.getLayoutPosition())));
         return viewHolder;
     }
 

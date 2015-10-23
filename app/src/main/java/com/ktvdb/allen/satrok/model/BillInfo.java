@@ -35,6 +35,8 @@ public class BillInfo
     @SerializedName("Nonpay")
     private String Nonpay;
 
+
+
     /**
      * @return The Succed
      */
@@ -260,4 +262,6 @@ public class BillInfo
                                   .append(Nonpay, rhs.Nonpay)
                                   .isEquals();
     }
+
+
 }

@@ -26,7 +26,6 @@ public class VolumeReceiver extends BroadcastReceiver
     public void onReceive(Context context, Intent intent)
     {
         int volume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-        LogUtils.e(volume);
         EventBus.getDefault().post(new VolumeChangedEvent(volume));
     }
 }

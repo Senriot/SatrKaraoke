@@ -120,8 +120,8 @@
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    app:layout_empty="@layout/song_list_empty"
                     app:recyclerClipToPadding="false"/>
-
             </FrameLayout>
 
         </RelativeLayout>

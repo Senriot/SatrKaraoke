@@ -48,4 +48,6 @@
     <string name="fenlei">分类</string>
     <string name="shouxie">手写</string>
     <string name="newSongEnTitle">NEW</string>
+    <string name="tab_song">歌曲</string>
+    <string name="tab_album">专辑</string>
 </resources>

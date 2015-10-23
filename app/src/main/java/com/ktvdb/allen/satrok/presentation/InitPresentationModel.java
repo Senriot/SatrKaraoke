@@ -1,24 +1,19 @@
 package com.ktvdb.allen.satrok.presentation;
 
-import android.app.DownloadManager;
 import android.content.pm.PackageManager;
 
 import com.apkfuns.logutils.LogUtils;
 import com.ktvdb.allen.satrok.DaggerScope;
 import com.ktvdb.allen.satrok.StarokApplication;
-import com.ktvdb.allen.satrok.gui.InitActivity;
 import com.ktvdb.allen.satrok.model.AppVersion;
 import com.ktvdb.allen.satrok.model.HostAddress;
 import com.ktvdb.allen.satrok.model.RoomInfo;
 import com.ktvdb.allen.satrok.presentation.view.InitView;
 import com.ktvdb.allen.satrok.service.RestService;
 import com.ktvdb.allen.satrok.service.SocketService;
-import com.ktvdb.allen.satrok.socket.model.Message;
 import com.ktvdb.allen.satrok.socket.model.ReceiveMessage;
 import com.ktvdb.allen.satrok.utils.ConfigManager;
 import com.ktvdb.allen.satrok.utils.GsonUtil;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.picasso.OkHttpDownloader;
 
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
@@ -27,11 +22,7 @@ import javax.inject.Inject;
 
 import autodagger.AutoComponent;
 import autodagger.AutoInjector;
-import cn.finalteam.okhttpfinal.dm.DownloadHttpTask;
-import cn.finalteam.okhttpfinal.dm.DownloadInfo;
-import cn.finalteam.okhttpfinal.dm.DownloadListener;
 import dagger.Lazy;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -128,24 +119,6 @@ public class InitPresentationModel
         {
             //下载更新
             LogUtils.e("需要更新");
-            cn.finalteam.okhttpfinal.dm.DownloadManager.getInstance(StarokApplication.getAppContext())
-                    .addTask("",new DownloadListener()
-                    {
-                        @Override
-                        public void onProgress(DownloadInfo downloadInfo)
-                        {
-                        }
-
-                        @Override
-                        public void onFinish(DownloadInfo downloadInfo)
-                        {
-                        }
-
-                        @Override
-                        public void onError(DownloadInfo downloadInfo)
-                        {
-                        }
-                    });
         }
         else
         {

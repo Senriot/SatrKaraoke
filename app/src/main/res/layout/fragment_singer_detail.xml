@@ -108,8 +108,8 @@
                     android:id="@+id/background"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:singerBlurImage="@{singer.img}"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="centerCrop"
+                    app:singerBlurImage="@{singer.img}"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -129,7 +129,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:checked="true"
-                            android:text="歌曲"
+                            android:text="@string/tab_song"
                             android:textStyle="bold"/>
 
                         <RadioButton
@@ -138,7 +138,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:checked="false"
-                            android:text="专辑"
+                            android:text="@string/tab_album"
                             android:textStyle="bold"/>
                     </RadioGroup>
 
@@ -148,12 +148,10 @@
                         android:background="#c09f78"/>
 
 
-                    <com.malinskiy.superrecyclerview.SuperRecyclerView
-                        android:id="@+id/recyclerView"
+                    <FrameLayout
+                        android:id="@+id/content"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:recyclerClipToPadding="false"
-                        app:scrollbarStyle="insideInset"/>
+                        android:layout_height="match_parent"/>
 
                 </LinearLayout>
             </FrameLayout>

@@ -109,12 +109,24 @@ public class MainActivity extends MasterActivity implements MainView,
 
         mBinding.bottomBar.playerSeekbar.setOnSeekBarChangeListener(this);
         mBinding.topBar.selectedView.setOnClickListener(v -> {
-            if (ViewUtils.isNotDoubleClick())
+
+            try
             {
-                if (getFragmentMaster().getPrimaryFragment() instanceof SelectedFragment) return;
-                getFragmentMaster().getPrimaryFragment().startFragment(new Request(
-                        SelectedFragment.class).putExtra("title", "已选"));
+                if (ViewUtils.isNotDoubleClick())
+                {
+                    if (getFragmentMaster().getPrimaryFragment() instanceof SelectedFragment)
+                    {
+                        return;
+                    }
+                    getFragmentMaster().getPrimaryFragment().startFragment(new Request(
+                            SelectedFragment.class).putExtra("title", "已选"));
+                }
             }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
         });
 
         getFragmentMaster().install(R.id.main_container,

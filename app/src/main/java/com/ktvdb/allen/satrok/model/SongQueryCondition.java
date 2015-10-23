@@ -26,7 +26,8 @@ public class SongQueryCondition
         WLLX,
         YSFL,
         DYDQ,
-        MGLX
+        MGLX,
+        ALBUM
     }
 
     /**

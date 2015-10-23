@@ -131,7 +131,6 @@ public class BindingUtils
                                                            .configManager();
 
             String url = configManager.getSingerImageUrl(file, w);
-            LogUtils.e(url);
             draweeView.setImageURI(Uri.parse(url));
 
         }

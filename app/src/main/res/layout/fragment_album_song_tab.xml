@@ -1,11 +1,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        tools:context=".gui.fragment.SingerTabSongsFragment">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.ktvdb.allen.satrok.gui.fragment.SelectedPageFragment">
+        android:layout_height="match_parent">
 
 
         <com.malinskiy.superrecyclerview.SuperRecyclerView
@@ -15,7 +15,6 @@
             android:layout_gravity="center"
             app:layout_empty="@layout/song_list_empty"/>
     </FrameLayout>
-
 </layout>
 
 

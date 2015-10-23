@@ -5,7 +5,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import android.view.ViewGroup;
 import com.ktvdb.allen.satrok.R;
 import com.ktvdb.allen.satrok.databinding.FragmentSelectedPageBinding;
 import com.ktvdb.allen.satrok.event.PlayQueueChengedEvent;
+import com.ktvdb.allen.satrok.gui.adapters.PlayedPageAdapter;
 import com.ktvdb.allen.satrok.gui.adapters.SelectedPageAdapter;
 import com.ktvdb.allen.satrok.gui.widget.DividerItemDecoration;
 
@@ -24,13 +24,13 @@ import jp.wasabeef.recyclerview.animators.FadeInAnimator;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SelectedPageFragment extends Fragment
+public class PlayedPageFragment extends Fragment
 {
     FragmentSelectedPageBinding mBinding;
-    private SelectedPageAdapter mAdapter;
-    private GridLayoutManager   mLayoutManager;
+    private PlayedPageAdapter mAdapter;
+    private GridLayoutManager mLayoutManager;
 
-    public SelectedPageFragment()
+    public PlayedPageFragment()
     {
 
     }
@@ -57,11 +57,11 @@ public class SelectedPageFragment extends Fragment
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        mLayoutManager = new GridLayoutManager(getActivity(),1);
+        mLayoutManager = new GridLayoutManager(getActivity(), 1);
         mBinding.list.setLayoutManager(mLayoutManager);
         mBinding.list.addItemDecoration(new DividerItemDecoration(getActivity(),
                                                                   DividerItemDecoration.VERTICAL_LIST));
-        mAdapter = new SelectedPageAdapter();
+        mAdapter = new PlayedPageAdapter();
         mBinding.list.setAdapter(mAdapter);
         mBinding.list.getRecyclerView().setItemAnimator(new FadeInAnimator());
     }

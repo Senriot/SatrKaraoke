@@ -3,10 +3,13 @@ package com.ktvdb.allen.satrok.gui.fragment;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.apkfuns.logutils.LogUtils;
+import com.fragmentmaster.animator.PageAnimator;
 import com.fragmentmaster.app.Request;
 import com.ktvdb.allen.satrok.R;
 import com.ktvdb.allen.satrok.databinding.FragmentSingerListBinding;
@@ -38,7 +41,8 @@ public class SingerListFragment extends LevelBaseFragment<FragmentSingerListBind
 {
 
     SingerListPresentation mPresentation;
-    private AdvertisementImageAdapter advertisementImageAdapter;
+
+    private Handler mHandler = new Handler();
 
     public SingerListFragment()
     {
@@ -62,12 +66,37 @@ public class SingerListFragment extends LevelBaseFragment<FragmentSingerListBind
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        mPresentation = new SingerListPresentation(this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),
                                                                     6,
                                                                     GridLayoutManager.VERTICAL,
                                                                     false);
         mBinding.recyclerView.setLayoutManager(gridLayoutManager);
+
+
+    }
+
+    @Override
+    public void onUserActive()
+    {
+        super.onUserActive();
+        LogUtils.e("onUserActive");
+        mHandler.postDelayed(() -> mPresentation = new SingerListPresentation(SingerListFragment.this),
+                             200);
+    }
+
+    @Override
+    public void onUserLeave()
+    {
+        super.onUserLeave();
+        mBinding.adImagePage.stopScroll();
+        LogUtils.e("onUserLeave");
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser)
+    {
+        super.setUserVisibleHint(isVisibleToUser);
+
     }
 
     @Override

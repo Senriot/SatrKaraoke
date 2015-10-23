@@ -1,6 +1,8 @@
 package com.ktvdb.allen.satrok.gui.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.method.ScrollingMovementMethod;
@@ -9,33 +11,43 @@ import android.widget.RadioGroup;
 import com.fragmentmaster.app.Request;
 import com.ktvdb.allen.satrok.R;
 import com.ktvdb.allen.satrok.databinding.FragmentSingerDetailBinding;
+import com.ktvdb.allen.satrok.gui.MainActivity;
 import com.ktvdb.allen.satrok.model.Album;
 import com.ktvdb.allen.satrok.model.Singer;
 import com.ktvdb.allen.satrok.presentation.SingerDetailPresentation;
 import com.ktvdb.allen.satrok.presentation.view.SingerDetailView;
+import com.ktvdb.allen.satrok.service.RestService;
 import com.ktvdb.allen.satrok.utils.ViewUtils;
 
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
 
+import javax.inject.Inject;
+
+import autodagger.AutoInjector;
+import rx.Observable;
+import rx.android.app.AppObservable;
+
 
 /**
  * Created by Allen on 15/9/4.
  */
+@AutoInjector(MainActivity.class)
 public class SingerDetailFragment extends LevelBaseFragment<FragmentSingerDetailBinding> implements SingerDetailView,
                                                                                                     RadioGroup.OnCheckedChangeListener
 {
-    SingerDetailPresentation mPresentation;
-    Singer                   mSinger;
-
-    GridLayoutManager mGridLayoutManager;
+    Singer mSinger;
+    @Inject
+    RestService mService;
+    private Handler mHandler = new Handler();
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
+        MainActivity.getComponent().inject(this);
         mSinger = (Singer) getRequest().getSerializableExtra("singer");
+
     }
 
     @Override
@@ -48,30 +60,27 @@ public class SingerDetailFragment extends LevelBaseFragment<FragmentSingerDetail
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        mPresentation = new SingerDetailPresentation(this, mSinger);
-        mGridLayoutManager = new GridLayoutManager(getActivity(),
-                                                   1,
-                                                   LinearLayoutManager.VERTICAL,
-                                                   false);
-
-        mBinding.recyclerView.setLayoutManager(mGridLayoutManager);
         mBinding.categoryRadioGroup.setOnCheckedChangeListener(this);
         mBinding.singerInfo.setMovementMethod(ScrollingMovementMethod.getInstance());
+
+        AppObservable.bindFragment(this, mService.getSinger(mSinger.getId()))
+                     .onErrorResumeNext(Observable.<Singer>empty())
+                     .subscribe(mBinding::setSinger);
+
     }
 
-    @Subscriber
-    void onSetSongAdapter(SingerDetailPresentation.SetSongAdapterEvent event)
+    @Override
+    public void onUserActive()
     {
-        if (mBinding.categoryRadioGroup.getCheckedRadioButtonId() != R.id.rb_album)
-        {
-            mBinding.recyclerView.setAdapter(event.adapter);
-        }
+        mHandler.postDelayed(this::init, 150);
+
     }
 
-    @Subscriber
-    void onBindSinger(SingerDetailPresentation.BindSingerEvent event)
+    private void init()
     {
-        mBinding.setSinger(event.singer);
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.content, SingerTabSongsFragment.newInstance(mSinger));
+        transaction.commit();
     }
 
     @Override
@@ -92,14 +101,15 @@ public class SingerDetailFragment extends LevelBaseFragment<FragmentSingerDetail
     {
         if (checkedId == R.id.rb_album)
         {
-            mGridLayoutManager.setSpanCount(6);
-            mBinding.recyclerView.setAdapter(mPresentation.getAlbumAdapter());
-            mPresentation.getAlbumAdapter().notifyDataSetChanged();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.content, SingerTabAlbumsFragment.newInstance(mSinger, this));
+            transaction.commit();
         }
         else
         {
-            mGridLayoutManager.setSpanCount(1);
-            mBinding.recyclerView.setAdapter(mPresentation.getSongAdapter());
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.content, SingerTabSongsFragment.newInstance(mSinger));
+            transaction.commit();
         }
     }
 }

@@ -71,7 +71,7 @@ dependencies {
     }
     //io
 //    compile 'com.squareup.okhttp:okhttp:2.5.0'
-    compile 'cn.finalteam:okhttpfinal-dm:1.0.7'
+//    compile 'cn.finalteam:okhttpfinal-dm:1.0.7'
     compile 'com.apkfuns.logutils:library:1.0.5'
     compile 'net.qiujuer.genius:blur:1.0.0'
     compile 'org.simple:androideventbus:1.0.5'

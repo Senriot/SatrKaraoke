@@ -85,6 +85,11 @@ public class AdPageView extends SimpleDraweeView
         }
     }
 
+    public void stopScroll()
+    {
+        mHandler.removeCallbacks(runnable);
+    }
+
     private Runnable runnable = new Runnable()
     {
         @Override

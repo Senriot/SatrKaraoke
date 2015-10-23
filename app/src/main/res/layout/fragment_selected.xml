@@ -6,6 +6,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clickable="true"
         tools:context="com.oilinux.allen.starkaraoke.ui.fragment.SelectedFragment">
 
         <include
@@ -62,16 +63,18 @@
 
                 </RadioGroup>
 
-                <TextView
+                <View
                     android:id="@+id/line"
                     android:layout_width="fill_parent"
                     android:layout_height="3dp"
                     android:background="#c09f78"/>
 
-                <com.malinskiy.superrecyclerview.SuperRecyclerView
-                    android:id="@+id/recyclerView"
+                <FrameLayout
+                    android:id="@+id/content"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent">
+
+                </FrameLayout>
 
             </LinearLayout>
         </RelativeLayout>

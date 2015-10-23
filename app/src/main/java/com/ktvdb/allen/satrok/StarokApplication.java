@@ -99,6 +99,7 @@ public class StarokApplication extends Application
             return new RestAdapter.Builder()
                     .setEndpoint(configManager.getBaseUrl())
                     .setConverter(new GsonConverter(GsonUtil.gson()))
+                    .setLogLevel(RestAdapter.LogLevel.FULL)
                     .build();
         }
 

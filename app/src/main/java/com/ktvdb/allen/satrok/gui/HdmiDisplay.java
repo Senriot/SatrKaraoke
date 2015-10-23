@@ -110,7 +110,6 @@ public class HdmiDisplay extends Presentation implements SurfaceHolder.Callback,
         public void run()
         {
             time += 1;
-            LogUtils.e(time);
             if (time > 0 && time % 30 == 0)
             {
                 mHandler.sendEmptyMessage(MSG_SHOW_IMAGE_AD);

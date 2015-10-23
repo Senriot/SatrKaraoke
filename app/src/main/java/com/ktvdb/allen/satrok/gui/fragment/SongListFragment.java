@@ -115,7 +115,6 @@ public class SongListFragment extends LevelBaseFragment<FragmentSongListBinding>
     @Override
     public void setImageAds(List<Advertisement> advertisements)
     {
-        LogUtils.e(advertisements);
         advertisementImageAdapter = new AdvertisementImageAdapter(advertisements, getActivity());
         mBinding.adPageView.addAds(advertisements);
         mBinding.adPageView.startScroll();

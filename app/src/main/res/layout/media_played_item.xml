@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <com.ktvdb.allen.satrok.swipe.SwipeLayout
+        <com.malinskiy.superrecyclerview.swipe.SwipeLayout
             android:id="@id/recyclerview_swipe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -19,6 +19,7 @@
                 android:background="@color/song_menu_background"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
+                android:tag="Bottom3"
                 android:weightSum="10">
 
                 <com.ktvdb.allen.satrok.gui.widget.SquareButton
@@ -30,28 +31,12 @@
                     android:src="@drawable/ic_reselect"/>
 
                 <com.ktvdb.allen.satrok.gui.widget.SquareButton
-                    android:id="@+id/btn_top"
-                    style="@style/song_swip_button_style"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@color/transparent"
-                    android:src="@drawable/ic_ding"/>
-
-                <com.ktvdb.allen.satrok.gui.widget.SquareButton
                     android:id="@+id/btn_delete"
                     style="@style/song_swip_button_style"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@color/transparent"
                     android:src="@drawable/ic_delete"/>
-
-                com.ktvdb.allen.satrok.gui.widget.SquareButton
-                android:id="@+id/btn_favorite"
-                style="@style/song_swip_button_style"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@color/transparent"
-                android:src="@mipmap/ic_shou_cang"/>
 
                 <com.ktvdb.allen.satrok.gui.widget.SquareButton
                     android:id="@+id/btn_detail"
@@ -67,7 +52,6 @@
                 android:id="@+id/rootView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:clickable="true"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -84,27 +68,16 @@
 
                 <TextView
                     android:id="@+id/song_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="13dp"
+                    android:layout_weight="1"
                     android:maxWidth="450dp"
                     android:singleLine="true"
                     android:textColor="@color/song_list_item_text_color"
                     android:textSize="26sp"
                     tools:ignore="RtlHardcoded"/>
 
-                <TextView
-                    android:id="@+id/textFlag"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_weight="1"
-                    android:tag="Hover"
-                    android:text="——正播放"
-                    android:textColor="@color/song_list_item_text_color"
-                    android:textSize="26sp"
-                    android:visibility="invisible"
-                    tools:ignore="RtlHardcoded"/>
 
                 <TextView
                     android:id="@+id/singer_name"
@@ -119,14 +92,14 @@
                 <ImageView
                     android:layout_width="10dp"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="-3dp"
+                    android:layout_marginTop="-3dp"
                     android:background="@color/song_menu_background"
                     android:scaleType="center"
-                    android:src="@drawable/ic_arrow"
-                    android:layout_marginTop="-3dp"
-                    android:layout_marginBottom="-3dp"/>
+                    android:src="@drawable/ic_arrow"/>
             </LinearLayout>
 
-        </com.ktvdb.allen.satrok.swipe.SwipeLayout>
+        </com.malinskiy.superrecyclerview.swipe.SwipeLayout>
 
     </LinearLayout>
 </layout>
