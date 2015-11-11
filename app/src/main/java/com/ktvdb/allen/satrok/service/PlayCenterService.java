@@ -38,8 +38,12 @@ import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.ktvdb.allen.satrok.DaggerScope;
 import com.ktvdb.allen.satrok.StarokApplication;
+import com.ktvdb.allen.satrok.event.PlayerReadyedEvent;
 import com.ktvdb.allen.satrok.gui.HdmiDisplay;
+import com.ktvdb.allen.satrok.gui.PlaybackDisplay;
+import com.ktvdb.allen.satrok.model.PageResponse;
 import com.ktvdb.allen.satrok.model.PlayActionResult;
+import com.ktvdb.allen.satrok.model.Song;
 import com.ktvdb.allen.satrok.module.PlaybackModule;
 import com.ktvdb.allen.satrok.socket.RoomStatusExt;
 import com.ktvdb.allen.satrok.socket.RoomStatusRequest;
@@ -148,8 +152,8 @@ public class PlayCenterService extends Service
         EventBus.getDefault().register(this);
         mMediaRouter.addCallback(MediaRouter.ROUTE_TYPE_LIVE_VIDEO, mMediaRouterCallback);
         updatePresentation();
-        int maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, 0);
+//        int maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 8, 0);
         hideSystemBar();
 
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
@@ -179,7 +183,6 @@ public class PlayCenterService extends Service
         MediaRouter.RouteInfo route = mMediaRouter.getSelectedRoute(
                 MediaRouter.ROUTE_TYPE_LIVE_VIDEO);
         Display presentationDisplay = route != null ? route.getPresentationDisplay() : null;
-
         if (mPresentation != null && mPresentation.getDisplay() != presentationDisplay)
         {
             mPresentation.dismiss();
@@ -310,6 +313,7 @@ public class PlayCenterService extends Service
                                             MediaRouter.RouteInfo info)
                 {
                     updatePresentation();
+                    LogUtils.e("onRouteSelected");
                 }
 
                 @Override
@@ -318,6 +322,7 @@ public class PlayCenterService extends Service
                                               MediaRouter.RouteInfo info)
                 {
                     updatePresentation();
+                    LogUtils.e("onRouteSelected");
                 }
 
                 @Override
@@ -325,6 +330,53 @@ public class PlayCenterService extends Service
                                                               MediaRouter.RouteInfo info)
                 {
                     updatePresentation();
+                }
+
+                @Override
+                public void onRouteAdded(MediaRouter router, MediaRouter.RouteInfo info)
+                {
+                    super.onRouteAdded(router, info);
+                    LogUtils.e("onRouteSelected");
+                }
+
+                @Override
+                public void onRouteRemoved(MediaRouter router, MediaRouter.RouteInfo info)
+                {
+                    super.onRouteRemoved(router, info);
+                    LogUtils.e("onRouteSelected");
+                }
+
+                @Override
+                public void onRouteChanged(MediaRouter router, MediaRouter.RouteInfo info)
+                {
+                    super.onRouteChanged(router, info);
+                    LogUtils.e("onRouteSelected");
+                }
+
+                @Override
+                public void onRouteGrouped(MediaRouter router,
+                                           MediaRouter.RouteInfo info,
+                                           MediaRouter.RouteGroup group,
+                                           int index)
+                {
+                    super.onRouteGrouped(router, info, group, index);
+                    LogUtils.e("onRouteSelected");
+                }
+
+                @Override
+                public void onRouteUngrouped(MediaRouter router,
+                                             MediaRouter.RouteInfo info,
+                                             MediaRouter.RouteGroup group)
+                {
+                    super.onRouteUngrouped(router, info, group);
+                    LogUtils.e("onRouteSelected");
+                }
+
+                @Override
+                public void onRouteVolumeChanged(MediaRouter router, MediaRouter.RouteInfo info)
+                {
+                    super.onRouteVolumeChanged(router, info);
+                    LogUtils.e("onRouteSelected");
                 }
             };
 
@@ -335,6 +387,23 @@ public class PlayCenterService extends Service
         Map<String, String> map       = (Map<String, String>) message.content;
         String              messageId = map.get("msgID");
         takeSnapShot(messageId);
+    }
+
+    @Subscriber
+    public void playerReadyed(PlayerReadyedEvent event)
+    {
+        if (mediaPlayer.getTempPlayList() == null)
+        {
+            mediaPlayer.mRecordService.getTempPlayList(0, songPageResponse -> {
+                mediaPlayer.setTempPlayList(songPageResponse);
+                mediaPlayer.onCut();
+            });
+        }
+        else if (mediaPlayer.getMedia() != null && mediaPlayer.mPlayer.getPlayWhenReady() && mediaPlayer.mPlayer
+                .getPlaybackState() == 1)
+        {
+            mediaPlayer.goOnPlay();
+        }
     }
 
     public Bitmap bitmap()

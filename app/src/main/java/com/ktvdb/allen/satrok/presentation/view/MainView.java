@@ -3,6 +3,7 @@ package com.ktvdb.allen.satrok.presentation.view;
 import android.graphics.Bitmap;
 
 import com.ktvdb.allen.satrok.model.Advertisement;
+import com.ktvdb.allen.satrok.model.FullSearchResult;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface MainView
     void showBitmap(Bitmap bitmap);
 
     void setMute(boolean b);
+
+    void showSearchView(FullSearchResult fullSearchResult);
 }

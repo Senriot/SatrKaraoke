@@ -36,9 +36,9 @@
                     android:id="@+id/singer_avatar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
                     app:albumBigImage="@{album.id}"
-                    app:placeholderImage="@drawable/default_ad"
+                    app:placeholderImage="@drawable/singer_def"
+                    app:placeholderImageScaleType="focusCrop"
                     app:viewAspectRatio="1.0"/>
 
                 <RelativeLayout
@@ -56,7 +56,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:layout_margin="5dp"
-                        android:text='@{"专辑：" + album.title}'
+                        android:text='@{"专辑:" + album.title}'
                         android:textSize="20sp"/>
 
                     <TextView
@@ -67,7 +67,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/title_name"
                         android:layout_margin="5dp"
-                        android:text='@{"语种：" + album.language}'
+                        android:text='@{"语种:" + album.language}'
                         android:textSize="20sp"/>
 
                     <TextView
@@ -78,7 +78,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/title_area"
                         android:layout_margin="5dp"
-                        android:text="简介："
+                        android:text="简介:"
                         android:textSize="20sp"/>
 
                     <TextView

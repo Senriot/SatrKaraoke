@@ -132,7 +132,6 @@ public class VolumeControlView extends FrameLayout implements SeekArc.OnSeekArcC
     @Override
     public void onProgressChanged(SeekArc seekArc, int progress, boolean fromUser)
     {
-        LogUtils.e(progress);
         if (linstener != null)
         {
             linstener.onProgressChanged(progress, fromUser);

@@ -30,9 +30,9 @@ public class MovieAdapter extends NewokMediaAdapter<MovieAdapter.ViewHolder, Mov
     {
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         final MovieGridItemViewBinding binding = DataBindingUtil.inflate(inflater,
-                                                                        R.layout.movie_grid_item_view,
-                                                                        parent,
-                                                                        false);
+                                                                         R.layout.movie_grid_item_view,
+                                                                         parent,
+                                                                         false);
         return new ViewHolder(binding.getRoot(), binding);
     }
 
@@ -60,25 +60,15 @@ public class MovieAdapter extends NewokMediaAdapter<MovieAdapter.ViewHolder, Mov
         {
             super.setItem(movie);
             binding.setMovie(movie);
-            Uri uri;
-            if (!StringUtils.isEmpty(movie.getImg()))
-            {
-                uri = Uri.parse(movie.getImg());
-            }
-            else
-            {
-                uri = Uri.parse(
-                        "android.resource://" + StarokApplication.getAppContext().getPackageName() +
-                                "/" + R.drawable.singer_def);
-            }
-            binding.movieImage.setImageURI(uri);
         }
 
         @Override
         public void onClick(View v)
         {
             if (!ViewUtils.isFastDoubleClick())
+            {
                 EventBus.getDefault().post(getItem(), "showDetail");
+            }
         }
     }
 }

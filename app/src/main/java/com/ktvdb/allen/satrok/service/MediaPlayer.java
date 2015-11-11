@@ -30,6 +30,8 @@ import com.ktvdb.allen.satrok.event.PlayQueueChengedEvent;
 import com.ktvdb.allen.satrok.event.PlayWhenReadyEvent;
 import com.ktvdb.allen.satrok.model.Movie;
 import com.ktvdb.allen.satrok.model.NewokMedia;
+import com.ktvdb.allen.satrok.model.PageResponse;
+import com.ktvdb.allen.satrok.model.Singer;
 import com.ktvdb.allen.satrok.model.Song;
 
 import org.apache.commons.lang3.StringUtils;
@@ -39,6 +41,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import rx.functions.Action1;
 
 /**
  * Created by Allen on 15/8/29.
@@ -54,6 +58,8 @@ public class MediaPlayer implements MediaController.MediaPlayerControl,
     android.media.MediaPlayer mMediaPlayer;
 
     PlayRecordService mRecordService;
+
+    PageResponse<Song> tempPlayList;
 
     public static final int RENDERER_COUNT = 2;
     public static final int TYPE_VIDEO     = 0;
@@ -76,12 +82,23 @@ public class MediaPlayer implements MediaController.MediaPlayerControl,
     private NewokMedia media;
     private int        rendererBuildingState;
 
+    private boolean isPalyTemp;
+
 
     public NewokMedia getMedia()
     {
         return media;
     }
 
+    public PageResponse<Song> getTempPlayList()
+    {
+        return tempPlayList;
+    }
+
+    public void setTempPlayList(PageResponse<Song> tempPlayList)
+    {
+        this.tempPlayList = tempPlayList;
+    }
 
     private LinkedList<NewokMedia> mPlayList = new LinkedList<>();
 
@@ -241,7 +258,6 @@ public class MediaPlayer implements MediaController.MediaPlayerControl,
     @Override
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState)
     {
-        LogUtils.e("playWhenReady:" + playWhenReady + " playbackState:" + playbackState);
         EventBus.getDefault().post(new PlayWhenReadyEvent(playWhenReady, playbackState));
         if (playWhenReady && playbackState == ExoPlayer.STATE_ENDED)
         {
@@ -258,7 +274,7 @@ public class MediaPlayer implements MediaController.MediaPlayerControl,
     @Override
     public void onPlayerError(ExoPlaybackException error)
     {
-
+        onCut();
     }
 
     public void onRenderers(TrackRenderer[] renderers, DefaultBandwidthMeter bandwidthMeter)
@@ -414,7 +430,38 @@ public class MediaPlayer implements MediaController.MediaPlayerControl,
         }
         else
         {
-            media = null;
+            if ((!mPlayer.getPlayWhenReady() && mPlayer.getPlaybackState() == 1) || mPlayer.getPlaybackState() == ExoPlayer.STATE_ENDED)
+            {
+                if (media != null && !isPalyTemp)
+                {
+                    mPlayedList.add(media);
+                }
+                if (tempPlayList != null)
+                {
+                    if (tempPlayList.getContent().isEmpty())
+                    {
+                        mRecordService.getTempPlayList(getTempPlayList().getNumber() + 1,
+                                                       songPageResponse -> {
+                                                           setTempPlayList(songPageResponse);
+                                                           onCut();
+                                                       });
+                    }
+                    else
+                    {
+                        media = tempPlayList.getContent().remove(0);
+                        if (media != null)
+                        {
+                            startPlay();
+                            isPalyTemp = true;
+                        }
+                    }
+                }
+                else
+                {
+                    mRecordService.getTempPlayList(0, this::setTempPlayList);
+                }
+
+            }
         }
         EventBus.getDefault().post(new PlayQueueChengedEvent());
     }
@@ -425,14 +472,13 @@ public class MediaPlayer implements MediaController.MediaPlayerControl,
         prepare();
         mPlayer.seekTo(0);
         start();
-//        setSelectedTrack(0);
-//        int track = getAudioTrackCount();
-//        if (track == 1)
-//        {
-//            setSelectedTrack(0);
-//        }
     }
 
+    public void goOnPlay()
+    {
+        prepare();
+        start();
+    }
 
     /**
      * 添加节目到播放列表
@@ -442,7 +488,17 @@ public class MediaPlayer implements MediaController.MediaPlayerControl,
     public void addMedia(NewokMedia media, boolean isFirst)
     {
         if (StringUtils.isBlank(media.getPlayUrl())) return;
-        if (this.media == null)
+        if (isPalyTemp)
+        {
+            this.media = media;
+            startPlay();
+            mRecordService.recordMedia(media, PlayRecordService.ACTION_TYPE_START);
+            isPalyTemp = false;
+        }
+        else if (this.media == null
+                && !isPlaying()
+                && !(!mPlayer.getPlayWhenReady()
+                && mPlayer.getPlaybackState() == 4))
         {
             this.media = media;
             startPlay();
@@ -502,6 +558,12 @@ public class MediaPlayer implements MediaController.MediaPlayerControl,
         mRecordService.recordMedia(media, PlayRecordService.ACTION_TYPE_DELETE);
     }
 
+    public void delPlayed(NewokMedia media)
+    {
+        mPlayedList.remove(media);
+        EventBus.getDefault().post(new PlayQueueChengedEvent());
+    }
+
     public boolean isSelected(NewokMedia media)
     {
         return mPlayList.contains(media);
@@ -553,4 +615,6 @@ public class MediaPlayer implements MediaController.MediaPlayerControl,
         mPlayer.stop();
         startPlay();
     }
+
+
 }

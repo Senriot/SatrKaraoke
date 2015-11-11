@@ -22,6 +22,7 @@
             android:scaleType="centerCrop"
             app:albumItemImage="@{album.id}"
             app:placeholderImage="@drawable/singer_def"
+            app:placeholderImageScaleType="focusCrop"
             app:viewAspectRatio="1.0"/>
 
         <TextView

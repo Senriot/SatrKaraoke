@@ -15,6 +15,7 @@ import com.ktvdb.allen.satrok.event.PlayQueueChengedEvent;
 import com.ktvdb.allen.satrok.gui.MainActivity;
 import com.ktvdb.allen.satrok.gui.adapters.SongListAdapter;
 import com.ktvdb.allen.satrok.gui.widget.DividerItemDecoration;
+import com.ktvdb.allen.satrok.model.Direction;
 import com.ktvdb.allen.satrok.model.PageResponse;
 import com.ktvdb.allen.satrok.model.Singer;
 import com.ktvdb.allen.satrok.model.Song;
@@ -48,7 +49,9 @@ public class SingerTabSongsFragment extends Fragment implements OnMoreListener
     @Inject
     RestService mService;
 
-    SongQueryCondition mCondition = new SongQueryCondition();
+    SongQueryCondition mCondition = new SongQueryCondition("hot",
+                                                           Direction.DESC,
+                                                           SongQueryCondition.SongCategory.Singer,null);
 
 
     private Singer mSinger;
@@ -97,7 +100,6 @@ public class SingerTabSongsFragment extends Fragment implements OnMoreListener
         if (mSinger != null)
         {
             mCondition.setCategoryID(mSinger.getId());
-            mCondition.setSongCategory(SongQueryCondition.SongCategory.Singer);
             onLoadSong();
         }
     }

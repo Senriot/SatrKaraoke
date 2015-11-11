@@ -11,6 +11,7 @@ import com.ktvdb.allen.satrok.databinding.FragmentBillBinding;
 import com.ktvdb.allen.satrok.erp.ERPNetworkService;
 import com.ktvdb.allen.satrok.gui.MainActivity;
 import com.ktvdb.allen.satrok.gui.adapters.BillDetailAdapter;
+import com.ktvdb.allen.satrok.gui.annotation.FragmnetTitle;
 import com.ktvdb.allen.satrok.gui.widget.DividerItemDecoration;
 import com.ktvdb.allen.satrok.model.BillDetail;
 import com.ktvdb.allen.satrok.utils.ConfigManager;
@@ -25,6 +26,7 @@ import rx.functions.Action1;
  * A simple {@link Fragment} subclass.
  */
 @AutoInjector(MainActivity.class)
+@FragmnetTitle("消费账单")
 public class BillFragment extends LevelBaseFragment<FragmentBillBinding> implements Action1<BillDetail>
 {
 

@@ -1,6 +1,7 @@
 package com.ktvdb.allen.satrok.presentation;
 
 import android.content.pm.PackageManager;
+import android.os.Handler;
 
 import com.apkfuns.logutils.LogUtils;
 import com.ktvdb.allen.satrok.DaggerScope;
@@ -49,6 +50,8 @@ public class InitPresentationModel
     @Inject
     SocketService socketService;
 
+    Handler mHandler = new Handler();
+
     public InitPresentationModel(InitView initView)
     {
         this.initView = initView;
@@ -60,8 +63,7 @@ public class InitPresentationModel
                                                         .module(new Module())
                                                         .build();
         component.inject(this);
-        socketService.init();
-//        onCheckVersion();
+        mHandler.postDelayed(socketService::init, 3000);
     }
 
     @Subscriber
@@ -82,9 +84,8 @@ public class InitPresentationModel
         else
         {
             String json = GsonUtil.gson().toJson(message.content);
-            RoomInfo roomInfo = GsonUtil.gson().fromJson(json,RoomInfo.class);
+            RoomInfo roomInfo = GsonUtil.gson().fromJson(json, RoomInfo.class);
             configManager.setServerIp(message.ext.get("serverIp"));
-//            configManager.setErpServerHost(message.ext.get("erpIp"));
             configManager.setRoomInfo(roomInfo);
             onCheckVersion();
         }
@@ -104,7 +105,8 @@ public class InitPresentationModel
         restService.get().getAppversion()
                    .subscribeOn(Schedulers.io())
                    .observeOn(AndroidSchedulers.mainThread())
-                   .subscribe(this::checkVersion, throwable -> initView.onConnectFail(throwable.getLocalizedMessage()));
+                   .subscribe(this::checkVersion,
+                              throwable -> initView.onConnectFail(throwable.getLocalizedMessage()));
     }
 
     /**

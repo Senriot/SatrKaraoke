@@ -20,14 +20,10 @@
             android:orientation="horizontal">
 
 
-            <com.ktvdb.allen.satrok.gui.widget.AdPageView
+            <com.ktvdb.allen.satrok.gui.widget.AdvertisementPage
                 android:id="@+id/adPageView"
                 android:layout_width="729dp"
-                android:layout_height="729dp"
-                app:actualImageScaleType="centerCrop"
-                app:failureImageScaleType="centerCrop"
-                app:placeholderImage="@drawable/ad_729_729"
-                app:viewAspectRatio="1.0"/>
+                android:layout_height="729dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

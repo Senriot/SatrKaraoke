@@ -4,29 +4,47 @@ package com.ktvdb.allen.satrok.gui.fragment;
 import android.app.Fragment;
 import android.os.Bundle;
 
+import com.badoo.mobile.util.WeakHandler;
 import com.fragmentmaster.app.Request;
 import com.ktvdb.allen.satrok.R;
 import com.ktvdb.allen.satrok.databinding.FragmentKgeCategoryBinding;
+import com.ktvdb.allen.satrok.gui.MainActivity;
 import com.ktvdb.allen.satrok.gui.adapters.AlbumPageAdapter;
 import com.ktvdb.allen.satrok.gui.adapters.OnItemClickListener;
+import com.ktvdb.allen.satrok.gui.annotation.FragmnetTitle;
 import com.ktvdb.allen.satrok.model.Album;
+import com.ktvdb.allen.satrok.model.PageResponse;
 import com.ktvdb.allen.satrok.presentation.KGeCategoryPresentation;
 import com.ktvdb.allen.satrok.presentation.view.KeGeCategoryView;
+import com.ktvdb.allen.satrok.service.RestService;
 import com.ktvdb.allen.satrok.utils.ViewUtils;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import autodagger.AutoInjector;
 import butterknife.OnClick;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * A simple {@link Fragment} subclass.
  */
+@FragmnetTitle("K歌")
+@AutoInjector(MainActivity.class)
 public class KGeCategoryFragment extends LevelBaseFragment<FragmentKgeCategoryBinding> implements KeGeCategoryView,
                                                                                                   OnItemClickListener
 {
     KGeCategoryPresentation mPresentation;
 
     private AlbumPageAdapter albumPageAdapter;
+
+    private WeakHandler mHandler;
+
+    @Inject
+    RestService mService;
 
     @Override
     protected int getLayoutId()
@@ -35,10 +53,23 @@ public class KGeCategoryFragment extends LevelBaseFragment<FragmentKgeCategoryBi
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        MainActivity.getComponent().inject(this);
+        mHandler = new WeakHandler();
+    }
+
+    @Override
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        mPresentation = new KGeCategoryPresentation(this);
+        mHandler.postDelayed(() -> mService.getRecommendAlbums().observeOn(Schedulers.io())
+                                           .observeOn(AndroidSchedulers.mainThread())
+                                           .onErrorResumeNext(Observable.<PageResponse<Album>>empty())
+                                           .subscribe(albumPageResponse -> {
+                                               startScrollAlbum(albumPageResponse.getContent());
+                                           }), 300);
     }
 
     @OnClick(R.id.cardNewSong)
@@ -46,8 +77,7 @@ public class KGeCategoryFragment extends LevelBaseFragment<FragmentKgeCategoryBi
     {
         if (!ViewUtils.isFastDoubleClick())
         {
-            startFragment(new Request(NewSongFragment.class).putExtra(getString(R.string.fragmnet_name),
-                                                                      "新歌"));
+            startFragment(new Request(NewSongFragment.class));
         }
     }
 
@@ -56,8 +86,7 @@ public class KGeCategoryFragment extends LevelBaseFragment<FragmentKgeCategoryBi
     {
         if (ViewUtils.isNotDoubleClick())
         {
-            startFragment(new Request(SingerListFragment.class).putExtra(getString(R.string.fragmnet_name),
-                                                                         "歌星"));
+            startFragment(new Request(SingerListFragment.class));
         }
     }
 
@@ -66,8 +95,7 @@ public class KGeCategoryFragment extends LevelBaseFragment<FragmentKgeCategoryBi
     {
         if (!ViewUtils.isFastDoubleClick())
         {
-            startFragment(new Request(NewSongFragment.class).putExtra(getString(R.string.fragmnet_name),
-                                                                      "热门歌曲"));
+            startFragment(new Request(HotSongListFragment.class));
         }
     }
 
@@ -76,28 +104,16 @@ public class KGeCategoryFragment extends LevelBaseFragment<FragmentKgeCategoryBi
     {
         if (!ViewUtils.isFastDoubleClick())
         {
-            startFragment(new Request(PinYinSongFragment.class).putExtra(getString(R.string.fragmnet_name),
-                                                                         "拼音点歌"));
+            startFragment(new Request(PinYinSongFragment.class));
         }
     }
-
-//    @OnClick(R.id.card_bihua)
-//    void showBiHua()
-//    {
-//        if (!ViewUtils.isFastDoubleClick())
-//        {
-//            startFragment(new Request(BiHauSongFragment.class).putExtra(getString(R.string.fragmnet_name),
-//                                                                        "笔画"));
-//        }
-//    }
 
     @OnClick(R.id.cardShowXie)
     void onShowShowXie()
     {
         if (!ViewUtils.isFastDoubleClick())
         {
-            startFragment(new Request(ShouXieFragmnet.class).putExtra(getString(R.string.fragmnet_name),
-                                                                      "手写"));
+            startFragment(new Request(ShouXieFragmnet.class));
         }
     }
 
@@ -106,8 +122,7 @@ public class KGeCategoryFragment extends LevelBaseFragment<FragmentKgeCategoryBi
     {
         if (!ViewUtils.isFastDoubleClick())
         {
-            startFragment(new Request(SongListFragment.class).putExtra(getString(R.string.fragmnet_name),
-                                                                       "语种"));
+            startFragment(new Request(SongListLanguageFragmnet.class));
         }
     }
 
@@ -116,8 +131,7 @@ public class KGeCategoryFragment extends LevelBaseFragment<FragmentKgeCategoryBi
     {
         if (!ViewUtils.isFastDoubleClick())
         {
-            startFragment(new Request(WordCountFragmnet.class).putExtra(getString(R.string.fragmnet_name),
-                                                                        "字数"));
+            startFragment(new Request(WordCountFragmnet.class));
         }
     }
 
@@ -126,8 +140,7 @@ public class KGeCategoryFragment extends LevelBaseFragment<FragmentKgeCategoryBi
     {
         if (!ViewUtils.isFastDoubleClick())
         {
-            startFragment(new Request(SongCategoryFragment.class).putExtra(getString(R.string.fragmnet_name),
-                                                                           "分类"));
+            startFragment(new Request(SongCategoryFragment.class));
         }
     }
 

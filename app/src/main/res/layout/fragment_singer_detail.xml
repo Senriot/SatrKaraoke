@@ -36,7 +36,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="centerCrop"
-                    app:placeholderImage="@drawable/default_ad"
+                    app:placeholderImage="@drawable/singer_def"
+                    app:placeholderImageScaleType="focusCrop"
                     app:singerBigImage="@{singer.img}"
                     app:viewAspectRatio="1.0"/>
 
@@ -66,7 +67,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/title_name"
                         android:layout_margin="5dp"
-                        android:text='@{"地区：" + singer.birthPlace}'
+                        android:text='@{"地区：" + (singer.birthPlace == null ? "未知" : singer.birthPlace)}'
                         android:textSize="20sp"/>
 
 

@@ -17,10 +17,12 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="729dp"
+            android:layout_height="729dp"
             android:scaleType="centerCrop"
             app:adImage="@{advertisement.fileName}"
+            app:placeholderImage="@drawable/ad_729_729"
+            app:placeholderImageScaleType="focusCrop"
             app:viewAspectRatio="1.0"/>
 
         <TextView
@@ -31,10 +33,10 @@
             android:background="#90000000"
             android:gravity="left|center"
             android:maxLines="2"
+            android:padding="15dp"
             android:text="@{advertisement.name}"
             android:textColor="@color/white"
-            android:textSize="32sp"
-            android:padding="15dp"/>
+            android:textSize="32sp"/>
     </FrameLayout>
 </layout>
 

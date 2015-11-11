@@ -12,6 +12,7 @@ import com.fragmentmaster.app.Request;
 import com.ktvdb.allen.satrok.R;
 import com.ktvdb.allen.satrok.databinding.FragmentMovieBinding;
 import com.ktvdb.allen.satrok.gui.adapters.MovieAdapter;
+import com.ktvdb.allen.satrok.gui.annotation.FragmnetTitle;
 import com.ktvdb.allen.satrok.model.Movie;
 import com.ktvdb.allen.satrok.model.SysDictionary;
 import com.ktvdb.allen.satrok.presentation.MovieListPresentation;
@@ -25,6 +26,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
+@FragmnetTitle("卫星影院")
 public class MovieFragment extends LevelBaseFragment<FragmentMovieBinding> implements RadioGroup.OnCheckedChangeListener,
                                                                 MovieListView
 {

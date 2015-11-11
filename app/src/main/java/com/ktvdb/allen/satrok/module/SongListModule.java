@@ -1,5 +1,6 @@
 package com.ktvdb.allen.satrok.module;
 
+import com.ktvdb.allen.satrok.model.Direction;
 import com.ktvdb.allen.satrok.model.SongQueryCondition;
 
 import javax.inject.Singleton;
@@ -16,6 +17,6 @@ public class SongListModule
     @Provides
     SongQueryCondition providesSongQueryCondition()
     {
-        return new SongQueryCondition();
+        return new SongQueryCondition("hot", Direction.DESC, SongQueryCondition.SongCategory.None,null);
     }
 }

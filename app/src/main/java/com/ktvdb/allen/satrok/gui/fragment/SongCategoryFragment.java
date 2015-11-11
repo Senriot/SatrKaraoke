@@ -12,6 +12,7 @@ import com.ktvdb.allen.satrok.R;
 import com.ktvdb.allen.satrok.databinding.FragmentSongCategoryBinding;
 import com.ktvdb.allen.satrok.gui.MainActivity;
 import com.ktvdb.allen.satrok.gui.adapters.AdvertisementImageAdapter;
+import com.ktvdb.allen.satrok.gui.annotation.FragmnetTitle;
 import com.ktvdb.allen.satrok.gui.widget.NewokCardView;
 import com.ktvdb.allen.satrok.gui.widget.SongCategoryGrid;
 import com.ktvdb.allen.satrok.model.Advertisement;
@@ -34,6 +35,7 @@ import rx.functions.Action1;
  * A simple {@link Fragment} subclass.
  */
 @AutoInjector(MainActivity.class)
+@FragmnetTitle("分类")
 public class SongCategoryFragment extends LevelBaseFragment<FragmentSongCategoryBinding>
 {
 
@@ -72,10 +74,7 @@ public class SongCategoryFragment extends LevelBaseFragment<FragmentSongCategory
                                    restService.geLeftImageAds(configManager.getRoomInfo()
                                                                            .getCode()))
                      .onErrorResumeNext(Observable.<List<Advertisement>>empty())
-                     .subscribe(advertisements -> {
-                         mBinding.adPageView.addAds(advertisements);
-                         mBinding.adPageView.startScroll();
-                     });
+                     .subscribe(mBinding.adPageView::setAdvertisements);
     }
 
     @OnClick({R.id.btn_NianDai, R.id.btn_ZhengNengLiang, R.id.btn_ShaiShi, R.id.btn_QingGan,

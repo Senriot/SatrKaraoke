@@ -1,24 +1,29 @@
 package com.ktvdb.allen.satrok.gui.fragment;
 
-import android.os.Bundle;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.ktvdb.allen.satrok.R;
+import com.ktvdb.allen.satrok.gui.annotation.FragmnetTitle;
+import com.ktvdb.allen.satrok.model.Direction;
 import com.ktvdb.allen.satrok.model.SongQueryCondition;
-import com.ktvdb.allen.satrok.presentation.SongListPresentation;
 
 /**
  * Created by Allen on 15/9/2.
  */
-public class WordCountFragmnet extends SongListFragment
+@FragmnetTitle("字数点歌")
+public class WordCountFragmnet extends SongListBaseFragment
 {
     @Override
-    public void onActivityCreated(Bundle savedInstanceState)
+    protected void init()
     {
-        super.onActivityCreated(savedInstanceState);
-        String[] wordCouts = getResources().getStringArray(R.array.word_count_cate);
+    }
+
+    @Override
+    protected void onLoadTabView()
+    {
         mBinding.categoryRadioGroup.removeAllViews();
+        String[] wordCouts = getResources().getStringArray(R.array.word_count_cate);
         for (int i = 0; i < wordCouts.length; i++)
         {
             RadioButton radioButton = (RadioButton) getActivity().getLayoutInflater()
@@ -29,26 +34,17 @@ public class WordCountFragmnet extends SongListFragment
             mBinding.categoryRadioGroup.addView(radioButton);
             if (i == 0) radioButton.setChecked(true);
         }
-
         mBinding.categoryRadioGroup.setOnCheckedChangeListener(this);
-        mPresentation.getCondition().setWordCount(1);
-        mPresentation.getCondition().setSongCategory(SongQueryCondition.SongCategory.WordCount);
-
-        mPresentation.onLoadSong(mPresentation::addSongs);
-    }
-
-    protected void init()
-    {
-        mPresentation = new SongListPresentation(this);
-        mBinding.listView.setAdapter(mPresentation.getAdapter());
     }
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId)
     {
-        mPresentation.getAdapter().clear();
-        mPresentation.getCondition().setPage(0);
-        mPresentation.getCondition().setWordCount(checkedId);
-        mPresentation.onLoadSong(mPresentation::addSongs);
+        SongQueryCondition condition = new SongQueryCondition("hot",
+                                                              Direction.DESC,
+                                                              SongQueryCondition.SongCategory.WordCount,
+                                                              null);
+        condition.setWordCount(checkedId);
+        replacePage(condition);
     }
 }

@@ -60,7 +60,7 @@ dependencies {
     compile 'com.github.rey5137:material:1.2.1'
     compile 'com.daimajia.androidanimations:library:1.1.2@aar'
     compile 'com.malinskiy:superrecyclerview:1.1.0'
-    compile 'com.facebook.fresco:fresco:0.6.1'
+    compile 'com.facebook.fresco:fresco:0.8.0+'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.truizlop.sectionedrecyclerview:library:1.0.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
@@ -76,6 +76,7 @@ dependencies {
     compile 'net.qiujuer.genius:blur:1.0.0'
     compile 'org.simple:androideventbus:1.0.5'
     compile 'io.reactivex:rxnetty:0.4.11'
+    compile 'com.badoo.mobile:android-weak-handler:1.1'
     compile project(':libraries:fragmentmaster')
     compile project(':playersdk')
 }

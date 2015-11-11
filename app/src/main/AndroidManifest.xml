@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.ktvdb.allen.satrok"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+    package="com.ktvdb.allen.satrok"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
@@ -42,12 +43,16 @@
             android:exported="true">
         </service>
 
-        <receiver
-            android:name=".service.VolumeReceiver">
+        <receiver android:name=".service.VolumeReceiver">
             <intent-filter>
                 <action android:name="android.media.VOLUME_CHANGED_ACTION"/>
             </intent-filter>
-
+        </receiver>
+        <receiver android:name=".service.BootBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <category android:name="android.intent.category.HOME"/>
+            </intent-filter>
         </receiver>
     </application>
 

@@ -12,11 +12,13 @@ import android.os.Message;
 import android.view.Display;
 import android.view.SurfaceHolder;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.android.databinding.library.baseAdapters.BR;
 import com.apkfuns.logutils.LogUtils;
+import com.badoo.mobile.util.WeakHandler;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.exoplayer.ExoPlayer;
@@ -25,6 +27,8 @@ import com.ktvdb.allen.satrok.StarokApplication;
 import com.ktvdb.allen.satrok.databinding.HdmiDisplayBinding;
 import com.ktvdb.allen.satrok.event.OnServiceEvent;
 import com.ktvdb.allen.satrok.event.PlayWhenReadyEvent;
+import com.ktvdb.allen.satrok.event.PlayerReadyedEvent;
+import com.ktvdb.allen.satrok.event.ShowNextEvent;
 import com.ktvdb.allen.satrok.event.VolumeChangedEvent;
 import com.ktvdb.allen.satrok.model.Advertisement;
 import com.ktvdb.allen.satrok.model.PageResponse;
@@ -51,6 +55,8 @@ public class HdmiDisplay extends Presentation implements SurfaceHolder.Callback,
     private final static int MSG_SHOW_IMAGE_AD = 1;
     private final static int MSG_HIDE_IMAGE_AD = 2;
     private final static int MSG_SHOW_SERVICE  = 3;
+    private final static int MSG_SHOW_STATUS   = 4;
+    private final static int MSG_HIDE_STATUS   = 5;
 
     HdmiDisplayBinding      mBinding;
     HdmiDisplayPresentation mPresentation;
@@ -58,7 +64,6 @@ public class HdmiDisplay extends Presentation implements SurfaceHolder.Callback,
     private long time = 0;
 
     private Timer timer;
-
 
     private Handler mHandler = new Handler()
     {
@@ -69,25 +74,22 @@ public class HdmiDisplay extends Presentation implements SurfaceHolder.Callback,
             switch (msg.what)
             {
                 case MSG_SHOW_IMAGE_AD:
-                    YoYo.with(Techniques.SlideInRight).playOn(mBinding.imageAdPanl);
-//                    if (mPlayer != null)
-//                    {
-//                        int pos = mPlayer.getCurrentPosition() / 1000;
-//                        LogUtils.e(pos);
-//                        if (pos > 0 && pos % 30 == 0 && mPlayer.isPlaying())
-//                        {
-//                            YoYo.with(Techniques.SlideInRight).playOn(mBinding.imageAdPanl);
-//                            mHandler.sendEmptyMessageDelayed(MSG_HIDE_IMAGE_AD, 10000);
-//                        }
-//                    }
-//                    mHandler.sendEmptyMessageDelayed(MSG_SHOW_IMAGE_AD, 1000);
+//                    YoYo.with(Techniques.SlideInRight).playOn(mBinding.imageAdPanl);
+                    mBinding.imageAdPanl.setVisibility(View.VISIBLE);
                     break;
                 case MSG_HIDE_IMAGE_AD:
-                    YoYo.with(Techniques.SlideOutRight).playOn(mBinding.imageAdPanl);
+//                    YoYo.with(Techniques.SlideOutRight).playOn(mBinding.imageAdPanl);
+                    mBinding.imageAdPanl.setVisibility(View.GONE);
                     break;
                 case MSG_SHOW_SERVICE:
                     int v = mBinding.serviceFlag.getVisibility();
                     mBinding.serviceFlag.setVisibility(v != View.VISIBLE ? View.VISIBLE : View.GONE);
+                    break;
+                case MSG_SHOW_STATUS:
+                    mBinding.statusFlag.setVisibility(View.VISIBLE);
+                    break;
+                case MSG_HIDE_STATUS:
+                    mBinding.statusFlag.setVisibility(View.GONE);
                     break;
             }
         }
@@ -115,16 +117,6 @@ public class HdmiDisplay extends Presentation implements SurfaceHolder.Callback,
                 mHandler.sendEmptyMessage(MSG_SHOW_IMAGE_AD);
                 mHandler.sendEmptyMessageDelayed(MSG_HIDE_IMAGE_AD, 10000);
             }
-//            if (mPlayer != null)
-//            {
-//                int pos = mPlayer.getCurrentPosition() / 1000;
-//                LogUtils.e(pos);
-//                if (pos > 0 && pos % 30 == 0 && mPlayer.isPlaying())
-//                {
-//                    mHandler.sendEmptyMessage(MSG_SHOW_IMAGE_AD);
-//                    mHandler.sendEmptyMessageDelayed(MSG_HIDE_IMAGE_AD, 10000);
-//                }
-//            }
         }
     };
 
@@ -140,24 +132,29 @@ public class HdmiDisplay extends Presentation implements SurfaceHolder.Callback,
         mBinding.volumeBar.setMaxValue(15);
     }
 
+
     @Override
     public void surfaceCreated(SurfaceHolder holder)
     {
         mPresentation.pushSurface(holder.getSurface());
-        mHandler.sendEmptyMessage(MSG_HIDE_IMAGE_AD);
+//        mHandler.sendEmptyMessage(MSG_HIDE_IMAGE_AD);
+        EventBus.getDefault().post(new PlayerReadyedEvent());
+//        mPresentation.getTempPlayList();
     }
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height)
     {
-
+        LogUtils.e("surfaceChanged");
     }
+
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder)
     {
 
     }
+
 
     @Override
     public void setTextAds(List<Advertisement> advertisements)
@@ -180,7 +177,8 @@ public class HdmiDisplay extends Presentation implements SurfaceHolder.Callback,
     {
         if (event.playWhenReady && event.playbackState == ExoPlayer.STATE_READY)
         {
-            mBinding.statusFlag.setVisibility(View.INVISIBLE);
+//            mBinding.statusFlag.setVisibility(View.INVISIBLE);
+            mHandler.sendMessage(mHandler.obtainMessage(MSG_HIDE_STATUS));
             mPlayer = StarokApplication.getAppContext().getComponent().mediaPlayer();
             if (mPlayer.getCurrentPosition() < 8000)
             {
@@ -198,7 +196,7 @@ public class HdmiDisplay extends Presentation implements SurfaceHolder.Callback,
                                                                               .getFirst()
                                                                               .getName()));
                 }
-                mBinding.linearLayout.setVisibility(View.VISIBLE);
+                mBinding.textPanle.setVisibility(View.VISIBLE);
                 mHandler.removeCallbacks(hideTexts);
                 mHandler.postDelayed(hideTexts, 8000);
             }
@@ -206,6 +204,7 @@ public class HdmiDisplay extends Presentation implements SurfaceHolder.Callback,
         else if (!event.playWhenReady && event.playbackState == ExoPlayer.STATE_READY)
         {
             mBinding.statusFlag.setVisibility(View.VISIBLE);
+            mHandler.sendMessage(mHandler.obtainMessage(MSG_SHOW_STATUS));
         }
     }
 
@@ -225,7 +224,27 @@ public class HdmiDisplay extends Presentation implements SurfaceHolder.Callback,
         mHandler.postDelayed(hideVolumeBar, 3000);
     }
 
-    private Runnable hideTexts = () -> mBinding.linearLayout.setVisibility(View.INVISIBLE);
+    @Subscriber
+    void onShowNextText(ShowNextEvent event)
+    {
+        mBinding.txtCurrentPlay.setText(MessageFormat.format("当前播放: {0}",
+                                                             mPlayer.getMedia().getName()));
+
+        if (mPlayer.getPlayList().isEmpty())
+        {
+            mBinding.textNextPlay.setText("即将播放: 无点播曲目");
+        }
+        else
+        {
+            mBinding.textNextPlay.setText(MessageFormat.format("即将播放: {0}",
+                                                               mPlayer.getPlayList()
+                                                                      .getFirst()
+                                                                      .getName()));
+        }
+        mBinding.textPanle.setVisibility(View.VISIBLE);
+    }
+
+    private Runnable hideTexts = () -> mBinding.textPanle.setVisibility(View.INVISIBLE);
 
     public Bitmap screenshot()
     {
@@ -242,6 +261,4 @@ public class HdmiDisplay extends Presentation implements SurfaceHolder.Callback,
             mBinding.volumeBar.setVisibility(View.INVISIBLE);
         }
     };
-
-
 }

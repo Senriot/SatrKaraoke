@@ -85,11 +85,10 @@ public class HWBoardView extends FrameLayout implements PaintView.OnResultListen
         mBinding.paintView.resetRecognize();
     }
 
-    @OnClick({R.id.result1, R.id.result2, R.id.result3, R.id.result4, R.id.result5, R.id.result6, R.id.result7})
+    @OnClick({R.id.result1, R.id.result2, R.id.result3, R.id.result4, R.id.result5, R.id.result6, R.id.result7, R.id.result8})
     void onTextClick(TextView button)
     {
         String text = button.getText().toString();
-        LogUtils.e("selected:" + text);
         mBinding.paintView.resetRecognize();
         if (!StringUtils.isBlank(text) && linstener != null)
         {

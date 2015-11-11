@@ -5,15 +5,16 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.UiThread;
 import android.text.InputType;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.SeekBar;
 
-import com.apkfuns.logutils.LogUtils;
+import com.fragmentmaster.app.IMasterFragment;
 import com.fragmentmaster.app.MasterActivity;
 import com.fragmentmaster.app.Request;
 import com.google.android.exoplayer.ExoPlayer;
@@ -27,15 +28,18 @@ import com.ktvdb.allen.satrok.event.SearchSingerItemClickEvent;
 import com.ktvdb.allen.satrok.gui.fragment.MainFragment;
 import com.ktvdb.allen.satrok.gui.fragment.SelectedFragment;
 import com.ktvdb.allen.satrok.gui.fragment.SingerDetailFragment;
-import com.ktvdb.allen.satrok.gui.widget.KeyBoard;
+import com.ktvdb.allen.satrok.gui.widget.KeyBoardDialog;
 import com.ktvdb.allen.satrok.gui.widget.SearchResultView;
 import com.ktvdb.allen.satrok.model.Advertisement;
+import com.ktvdb.allen.satrok.model.FullSearchResult;
+import com.ktvdb.allen.satrok.model.Singer;
 import com.ktvdb.allen.satrok.model.Song;
 import com.ktvdb.allen.satrok.presentation.MainPresentation;
 import com.ktvdb.allen.satrok.presentation.view.MainView;
 import com.ktvdb.allen.satrok.service.MediaPlayer;
 import com.ktvdb.allen.satrok.service.PlayCenterService;
 import com.ktvdb.allen.satrok.service.PlayServiceHelper;
+import com.ktvdb.allen.satrok.service.RestService;
 import com.ktvdb.allen.satrok.utils.ConfigManager;
 import com.ktvdb.allen.satrok.utils.ViewUtils;
 
@@ -49,6 +53,12 @@ import javax.inject.Inject;
 import autodagger.AutoComponent;
 import autodagger.AutoInjector;
 import butterknife.ButterKnife;
+import rx.Observable;
+import rx.android.app.AppObservable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 
 @AutoComponent(
@@ -60,7 +70,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends MasterActivity implements MainView,
                                                             PlayCenterService.Client.Callback,
                                                             SeekBar.OnSeekBarChangeListener,
-                                                            KeyBoard.OnTextChangedLinstener
+                                                            KeyBoardDialog.KeyboardListener
 {
     @Inject
     WindowManager mWindowManager;
@@ -68,14 +78,13 @@ public class MainActivity extends MasterActivity implements MainView,
     @Inject
     MediaPlayer mPlayer;
 
+    @Inject
+    RestService mService;
+
     MainPresentation    mPresentation;
     ActivityMainBinding mBinding;
     private static MainActivityComponent component;
     private PlayServiceHelper mHelper = new PlayServiceHelper(this, this);
-
-    KeyBoard mKeyBoard;
-
-    boolean keyboardShow;
 
     private PopupWindow searchPopup;
     @Inject
@@ -104,9 +113,8 @@ public class MainActivity extends MasterActivity implements MainView,
                                            .playHubModel());
         ButterKnife.bind(this);
         final EditText searchView = mBinding.topBar.searchView;
-        searchView.setInputType(InputType.TYPE_NULL);
         searchView.setOnClickListener(v -> onShowKeyboard());
-
+        searchView.setInputType(InputType.TYPE_NULL);
         mBinding.bottomBar.playerSeekbar.setOnSeekBarChangeListener(this);
         mBinding.topBar.selectedView.setOnClickListener(v -> {
 
@@ -168,6 +176,11 @@ public class MainActivity extends MasterActivity implements MainView,
     {
         if (ViewUtils.isNotDoubleClick())
         {
+            IMasterFragment fragment = getFragmentMaster().getPrimaryFragment();
+            if (fragment instanceof SingerDetailFragment)
+            {
+                getFragmentMaster().finishFragment(fragment, 0, null);
+            }
             getFragmentMaster().getPrimaryFragment()
                                .startFragment(new Request(SingerDetailFragment.class)
                                                       .putExtra("singer", event.singer)
@@ -200,23 +213,10 @@ public class MainActivity extends MasterActivity implements MainView,
 
     synchronized void onShowKeyboard()
     {
-        KeyBoard.showKeyboard(this, this, mBinding.topBar.searchView.getText().toString());
-        if (searchPopup == null)
-        {
-            SearchResultView rootView = new SearchResultView(this);
-            searchPopup = new PopupWindow(this);
-            searchPopup.setFocusable(true);
-            searchPopup.setWidth(mBinding.topBar.searchBar.getWidth());
-            searchPopup.setHeight(800);
-            searchPopup.setContentView(rootView);
-            searchPopup.setBackgroundDrawable(new BitmapDrawable());
-            searchPopup.update();
-        }
 
-        if (!searchPopup.isShowing())
-        {
-            searchPopup.showAsDropDown(mBinding.topBar.searchBar);
-        }
+        KeyBoardDialog.showKeyboard(this, this, mBinding.topBar.searchView.getText().toString());
+//        KeyBoard.showKeyboard(this, this, mBinding.topBar.searchView.getText().toString());
+
     }
 
     @Override
@@ -243,9 +243,48 @@ public class MainActivity extends MasterActivity implements MainView,
     @Override
     public void onTextChanged(String text)
     {
-        mBinding.topBar.searchView.setText(text);
-        SearchResultView view = (SearchResultView) searchPopup.getContentView();
-        view.onReload(text);
+        String mText = mBinding.topBar.searchView.getText().toString();
+        if (!mText.equals(text))
+        {
+            mBinding.topBar.searchView.setText(text);
+            AppObservable.bindActivity(this, mService.fullSearch(text))
+                         .onErrorResumeNext(Observable.<FullSearchResult>empty())
+                         .map(fullSearchResult -> {
+                             if (text.equals(fullSearchResult.getSearchText()))
+                             {
+                                 if (!fullSearchResult.getSongs().isEmpty())
+                                 {
+                                     FullSearchResult.ContentItem<Song> item = new FullSearchResult.ContentItem<>();
+                                     item.setTitle("歌曲");
+                                     item.setList(fullSearchResult.getSongs());
+                                     fullSearchResult.addItem(item);
+                                 }
+
+                                 if (!fullSearchResult.getSingers().isEmpty())
+                                 {
+                                     FullSearchResult.ContentItem<Singer> item = new FullSearchResult.ContentItem<>();
+                                     item.setTitle("歌星");
+                                     item.setList(fullSearchResult.getSingers());
+                                     fullSearchResult.addItem(item);
+                                 }
+                                 return fullSearchResult;
+                             }
+                             return null;
+                         })
+                         .subscribe(this::showSearchView);
+        }
+    }
+
+    @Override
+    public void onShowed()
+    {
+
+    }
+
+    @Override
+    public void onDismiss()
+    {
+
     }
 
     @Override
@@ -267,6 +306,31 @@ public class MainActivity extends MasterActivity implements MainView,
         mBinding.bottomBar.ctrlJingYin.setIconRes(b ? R.drawable.ic_jingyin_baochi : R.drawable.ic_jingyin);
     }
 
+    @Override
+    public void showSearchView(FullSearchResult fullSearchResult)
+    {
+        if (fullSearchResult == null) return;
+        if (searchPopup == null)
+        {
+            SearchResultView rootView = new SearchResultView(this);
+            searchPopup = new PopupWindow(this);
+            searchPopup.setFocusable(true);
+            searchPopup.setWidth(mBinding.topBar.searchBar.getWidth());
+            searchPopup.setHeight(800);
+            searchPopup.setContentView(rootView);
+            searchPopup.setBackgroundDrawable(new BitmapDrawable());
+            searchPopup.update();
+            searchPopup.setOnDismissListener(() -> mBinding.topBar.searchView.setText(""));
+        }
+
+        if (!searchPopup.isShowing())
+        {
+            searchPopup.showAsDropDown(mBinding.topBar.searchBar);
+        }
+        SearchResultView rootView = (SearchResultView) searchPopup.getContentView();
+        rootView.setData(fullSearchResult);
+    }
+
 
     @dagger.Module
     public static class Module
@@ -280,7 +344,7 @@ public class MainActivity extends MasterActivity implements MainView,
     float y_temp02 = 0.0f;
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev)
+    public boolean dispatchTouchEvent(@NonNull MotionEvent ev)
     {
         float x = ev.getX();
         float y = ev.getY();

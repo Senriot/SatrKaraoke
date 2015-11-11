@@ -92,15 +92,10 @@ public class StarCardView extends FrameLayout
 
         txtName.setText(name);
         txtEnName.setText(enName);
-        try
+        if (image != 0)
         {
             icImage.setImageResource(image);
         }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
         rootView.setPadding(pading, pading, pading, pading);
     }
 

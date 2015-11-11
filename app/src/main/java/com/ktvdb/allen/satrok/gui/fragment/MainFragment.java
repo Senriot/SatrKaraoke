@@ -88,7 +88,7 @@ public class MainFragment extends AbstractFragment<FragmentMainBinding> implemen
     {
         if (!ViewUtils.isFastDoubleClick())
         {
-            startFragment(new Request(KGeCategoryFragment.class).putExtra("title", "K歌"));
+            startFragment(new Request(KGeCategoryFragment.class));
         }
     }
 
@@ -97,7 +97,7 @@ public class MainFragment extends AbstractFragment<FragmentMainBinding> implemen
     {
         if (!ViewUtils.isFastDoubleClick())
         {
-            startFragment(new Request(SatelliteLiveFragment.class).putExtra("title", "卫星直播"));
+            startFragment(new Request(SatelliteLiveFragment.class));
         }
     }
 
@@ -106,7 +106,7 @@ public class MainFragment extends AbstractFragment<FragmentMainBinding> implemen
     {
         if (!ViewUtils.isFastDoubleClick())
         {
-            startFragment(new Request(MovieFragment.class).putExtra("title", "卫星影院"));
+            startFragment(new Request(MovieFragment.class));
         }
     }
 
@@ -115,7 +115,7 @@ public class MainFragment extends AbstractFragment<FragmentMainBinding> implemen
     {
         if (!ViewUtils.isFastDoubleClick())
         {
-            startFragment(new Request(BillFragment.class).putExtra("title", "消费账单"));
+            startFragment(new Request(BillFragment.class));
         }
     }
 
@@ -124,7 +124,7 @@ public class MainFragment extends AbstractFragment<FragmentMainBinding> implemen
     {
         if (ViewUtils.isNotDoubleClick())
         {
-            startFragment(new Request(BindWeiXinFragment.class).putExtra("title", "微互动"));
+            startFragment(new Request(BindWeiXinFragment.class));
         }
     }
 
@@ -141,42 +141,34 @@ public class MainFragment extends AbstractFragment<FragmentMainBinding> implemen
             switch (view.getId())
             {
                 case R.id.subButtonNewSong:
-                    request = new Request(NewSongFragment.class).putExtra(getString(R.string.fragmnet_name),
-                                                                          "新歌");
+                    request = new Request(NewSongFragment.class);
                     break;
 
                 case R.id.subButtonHot:
-                    request = new Request(SongListFragment.class).putExtra(getString(R.string.fragmnet_name),
-                                                                           "热门歌曲");
+                    request = new Request(HotSongListFragment.class);
                     break;
                 case R.id.subButtonCategory:
-                    request = new Request(SongCategoryFragment.class).putExtra(getString(R.string.fragmnet_name),
-                                                                               "分类");
+                    request = new Request(SongCategoryFragment.class);
                     break;
 
                 case R.id.subButtonLanguage:
-                    request = new Request(SongListFragment.class).putExtra(getString(R.string.fragmnet_name),
-                                                                           "语种");
+                    request = new Request(SongListLanguageFragmnet.class);
                     break;
 
                 case R.id.subButtonShouXie:
-                    request = new Request(ShouXieFragmnet.class).putExtra(getString(R.string.fragmnet_name),
-                                                                          "手写点歌");
+                    request = new Request(ShouXieFragmnet.class);
                     break;
 
                 case R.id.subButtonSinger:
-                    request = new Request(SingerListFragment.class).putExtra(getString(R.string.fragmnet_name),
-                                                                             "歌星");
+                    request = new Request(SingerListFragment.class);
                     break;
 
                 case R.id.subButtonPinyin:
-                    request = new Request(PinYinSongFragment.class).putExtra(getString(R.string.fragmnet_name),
-                                                                             "拼音点歌");
+                    request = new Request(PinYinSongFragment.class);
                     break;
 
                 case R.id.subButtonWords:
-                    request = new Request(WordCountFragmnet.class)
-                            .putExtra(getString(R.string.fragmnet_name), "字数点歌");
+                    request = new Request(WordCountFragmnet.class);
                     break;
             }
 

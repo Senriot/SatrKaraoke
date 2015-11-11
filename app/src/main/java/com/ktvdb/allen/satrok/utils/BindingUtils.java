@@ -22,6 +22,7 @@ import com.facebook.imagepipeline.request.Postprocessor;
 import com.ktvdb.allen.satrok.R;
 import com.ktvdb.allen.satrok.StarokApplication;
 import com.ktvdb.allen.satrok.databinding.SongInfoPanelBinding;
+import com.ktvdb.allen.satrok.gui.widget.AdPageView;
 import com.ktvdb.allen.satrok.gui.widget.SongCategoryGrid;
 import com.ktvdb.allen.satrok.model.Song;
 import com.ktvdb.allen.satrok.model.SysDictionary;
@@ -182,6 +183,22 @@ public class BindingUtils
         {
             ConfigManager config = StarokApplication.getAppContext().getComponent().configManager();
             draweeView.setImageURI(Uri.parse(config.getAdvertisementUrl(file)));
+        }
+    }
+
+    public static void adImage(SimpleDraweeView draweeView,
+                               String file,
+                               AdPageView.OnScrollListener listener)
+    {
+        if (StringUtils.isNoneBlank(file))
+        {
+            ConfigManager config = StarokApplication.getAppContext().getComponent().configManager();
+            String url = config.getAdvertisementUrl(file);
+            draweeView.setImageURI(Uri.parse(url));
+            if (listener != null)
+            {
+                listener.onScroll(url);
+            }
         }
     }
 

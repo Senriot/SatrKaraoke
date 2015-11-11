@@ -1,6 +1,7 @@
 package com.ktvdb.allen.satrok.gui.widget;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -31,6 +32,8 @@ public class AdPageView extends SimpleDraweeView
 
     private LinkedList<Advertisement> advertisements = new LinkedList<>();
 
+    private OnScrollListener listener;
+
     public long getInterval()
     {
         return interval;
@@ -47,9 +50,26 @@ public class AdPageView extends SimpleDraweeView
     }
 
 
+    public interface OnScrollListener
+    {
+        void onScroll(String url);
+    }
+
+
+    public OnScrollListener getListener()
+    {
+        return listener;
+    }
+
+    public void setListener(OnScrollListener listener)
+    {
+        this.listener = listener;
+    }
+
     public AdPageView(Context context,
                       GenericDraweeHierarchy hierarchy)
     {
+
         super(context, hierarchy);
         init();
     }
@@ -106,7 +126,7 @@ public class AdPageView extends SimpleDraweeView
     private void onScroll()
     {
         Advertisement advertisement = this.advertisements.removeFirst();
-        BindingUtils.adImage(this, advertisement.getFileName());
+        BindingUtils.adImage(this, advertisement.getFileName(), listener);
         advertisements.addLast(advertisement);
     }
 }

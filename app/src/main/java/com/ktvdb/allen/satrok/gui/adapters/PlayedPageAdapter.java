@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by Allen on 15/10/21.
  */
-public class PlayedPageAdapter  extends BaseSwipeAdapter<PlayedPageAdapter.ViewHolder>
+public class PlayedPageAdapter extends BaseSwipeAdapter<PlayedPageAdapter.ViewHolder>
 {
 
     private List<NewokMedia> mData;
@@ -37,7 +37,7 @@ public class PlayedPageAdapter  extends BaseSwipeAdapter<PlayedPageAdapter.ViewH
                                                                  R.layout.media_played_item,
                                                                  null,
                                                                  false);
-        final ViewHolder holder = new ViewHolder(binding);
+        final ViewHolder                                  holder      = new ViewHolder(binding);
         com.malinskiy.superrecyclerview.swipe.SwipeLayout swipeLayout = holder.swipeLayout;
         swipeLayout.setDragEdge(com.malinskiy.superrecyclerview.swipe.SwipeLayout.DragEdge.Right);
         swipeLayout.setShowMode(com.malinskiy.superrecyclerview.swipe.SwipeLayout.ShowMode.PullOut);
@@ -47,7 +47,7 @@ public class PlayedPageAdapter  extends BaseSwipeAdapter<PlayedPageAdapter.ViewH
         });
         binding.btnDelete.setOnClickListener(v -> {
             mItemManger.closeItem(holder.getLayoutPosition());
-            mPlayer.delMedia(holder.getMedia());
+            mPlayer.delPlayed(holder.getMedia());
         });
         binding.btnDetail.setOnClickListener(v -> BindingUtils.showSongDetail(v,
                                                                               (Song) holder.getMedia()));
@@ -57,7 +57,7 @@ public class PlayedPageAdapter  extends BaseSwipeAdapter<PlayedPageAdapter.ViewH
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position)
     {
-        super.onBindViewHolder(viewHolder,position);
+        super.onBindViewHolder(viewHolder, position);
         NewokMedia media = getItem(position);
         viewHolder.onBind(media);
     }

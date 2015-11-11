@@ -21,16 +21,12 @@
             android:gravity="center_vertical">
 
 
-            <com.ktvdb.allen.satrok.gui.widget.AdPageView
+            <com.ktvdb.allen.satrok.gui.widget.AdvertisementPage
                 android:id="@+id/adImagePage"
                 android:layout_width="729dp"
                 android:layout_height="729dp"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                app:actualImageScaleType="centerCrop"
-                app:failureImageScaleType="centerCrop"
-                app:placeholderImage="@drawable/ad_729_729"
-                app:viewAspectRatio="1.0"/>
+                android:layout_alignParentTop="true"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -70,16 +66,15 @@
                     android:layout_height="3dp"
                     android:background="#c09f78"/>
 
-                <com.malinskiy.superrecyclerview.SuperRecyclerView
-                    android:id="@+id/recyclerView"
+                <FrameLayout
+                    android:id="@+id/content"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:recyclerClipToPadding="true"
-                    app:recyclerPadding="5dp"/>
+                    android:layout_height="match_parent"/>
 
 
             </LinearLayout>
         </RelativeLayout>
+
         <com.rey.material.widget.ImageButton
             android:id="@+id/btnKeyboard"
             style="@style/FlatButtonRippleStyle"

@@ -146,16 +146,25 @@ public class PaintView extends View
 
     private void onTouchStart(float x, float y)
     {
-        mPath.moveTo(x, y);
-        mX = x;
-        mY = y;
+        try
+        {
+            mPath.moveTo(x, y);
+            mX = x;
+            mY = y;
 
-        mTracks[mCount++] = (short) x;
-        mTracks[mCount++] = (short) y;
+            mTracks[mCount++] = (short) x;
+            mTracks[mCount++] = (short) y;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
     private void onTouchMove(float x, float y)
     {
+        try
         {
             float dx = Math.abs(x - mX);
             float dy = Math.abs(y - mY);
@@ -165,30 +174,50 @@ public class PaintView extends View
                 mX = x;
                 mY = y;
             }
+            mTracks[mCount++] = (short) x;
+            mTracks[mCount++] = (short) y;
         }
-        mTracks[mCount++] = (short) x;
-        mTracks[mCount++] = (short) y;
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     private void onTouchUp()
     {
-        mPath.lineTo(mX, mY);
+        try
+        {
+            mPath.lineTo(mX, mY);
 
-        mTracks[mCount++] = -1;
-        mTracks[mCount++] = 0;
-        onRecognize();
+            mTracks[mCount++] = -1;
+            mTracks[mCount++] = 0;
+            onRecognize();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
     private void onRecognize()
     {
-        short[] mTracksTemp;
-        int     countTemp = mCount;
+        try
+        {
+            short[] mTracksTemp;
+            int     countTemp = mCount;
 
-        mTracksTemp = mTracks.clone();
-        mTracksTemp[countTemp++] = -1;
-        mTracksTemp[countTemp++] = -1;
+            mTracksTemp = mTracks.clone();
+            mTracksTemp[countTemp++] = -1;
+            mTracksTemp[countTemp++] = -1;
 
-        WWHandWrite.hwRecognize(mTracksTemp, mResult, 10, 0xFFFF);
+            WWHandWrite.hwRecognize(mTracksTemp, mResult, 10, 0xFFFF);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
     public void resetRecognize()

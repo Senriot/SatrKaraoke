@@ -2,7 +2,6 @@ package com.ktvdb.allen.satrok.gui.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.ktvdb.allen.satrok.R;
@@ -12,10 +11,10 @@ import com.ktvdb.allen.satrok.gui.MainActivity;
 import com.ktvdb.allen.satrok.gui.adapters.SongListAdapter;
 import com.ktvdb.allen.satrok.gui.widget.DividerItemDecoration;
 import com.ktvdb.allen.satrok.model.Album;
+import com.ktvdb.allen.satrok.model.Direction;
 import com.ktvdb.allen.satrok.model.PageResponse;
 import com.ktvdb.allen.satrok.model.Song;
 import com.ktvdb.allen.satrok.model.SongQueryCondition;
-import com.ktvdb.allen.satrok.presentation.AlbumDetailPresentation;
 import com.ktvdb.allen.satrok.service.RestService;
 import com.malinskiy.superrecyclerview.OnMoreListener;
 
@@ -27,9 +26,6 @@ import javax.inject.Inject;
 import autodagger.AutoInjector;
 import rx.Observable;
 import rx.android.app.AppObservable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by Allen on 15/9/4.
@@ -46,7 +42,9 @@ public class AlbumDetailFragmnet extends LevelBaseFragment<FragmentAlbumDetailBi
 
     private SongListAdapter mAdapter;
 
-    SongQueryCondition mCondition = new SongQueryCondition();
+    SongQueryCondition mCondition = new SongQueryCondition("hot",
+                                                           Direction.DESC,
+                                                           SongQueryCondition.SongCategory.ALBUM,null);
     private Handler mHandler = new Handler();
 
     @Override
@@ -79,7 +77,6 @@ public class AlbumDetailFragmnet extends LevelBaseFragment<FragmentAlbumDetailBi
             AppObservable.bindFragment(this, mServie.getAlbum(mAlbum.getId()))
                          .onErrorResumeNext(Observable.<Album>empty())
                          .subscribe(mBinding::setAlbum);
-            mCondition.setSongCategory(SongQueryCondition.SongCategory.ALBUM);
             mCondition.setCategoryID(mAlbum.getId());
         }
     }

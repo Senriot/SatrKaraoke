@@ -67,7 +67,6 @@ public class StarokApplication extends Application
         UUID deviceUuid = new UUID(androidId.hashCode(),
                                    ((long) tmDevice.hashCode() << 32) | tmSerial.hashCode());
         String uniqueId = deviceUuid.toString();
-        LogUtils.e(uniqueId);
         return uniqueId;
     }
 
@@ -99,7 +98,7 @@ public class StarokApplication extends Application
             return new RestAdapter.Builder()
                     .setEndpoint(configManager.getBaseUrl())
                     .setConverter(new GsonConverter(GsonUtil.gson()))
-                    .setLogLevel(RestAdapter.LogLevel.FULL)
+                    .setLogLevel(RestAdapter.LogLevel.NONE)
                     .build();
         }
 

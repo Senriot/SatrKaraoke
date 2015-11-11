@@ -23,6 +23,21 @@ public class SingerQueryCondition
     private SingerCategory singerCategory = SingerCategory.None;
 
 
+    public SingerQueryCondition()
+    {
+    }
+
+    public SingerQueryCondition(String type,
+                                String sort,
+                                Direction direction,
+                                SingerCategory singerCategory)
+    {
+        this.type = type;
+        this.sort = sort;
+        this.direction = direction;
+        this.singerCategory = singerCategory;
+    }
+
     public int getPage()
     {
         return page;

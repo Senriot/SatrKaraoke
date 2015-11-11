@@ -47,13 +47,13 @@
                     android:background="@color/transparent"
                     android:src="@drawable/ic_delete"/>
 
-                <com.ktvdb.allen.satrok.gui.widget.SquareButton
-                    android:id="@+id/btn_favorite"
-                    style="@style/song_swip_button_style"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@color/transparent"
-                    android:src="@drawable/ic_shou_cang"/>
+                <!--<com.ktvdb.allen.satrok.gui.widget.SquareButton-->
+                    <!--android:id="@+id/btn_favorite"-->
+                    <!--style="@style/song_swip_button_style"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:background="@color/transparent"-->
+                    <!--android:src="@drawable/ic_shou_cang"/>-->
 
                 <com.ktvdb.allen.satrok.gui.widget.SquareButton
                     android:id="@+id/btn_detail"

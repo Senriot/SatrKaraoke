@@ -12,6 +12,7 @@ import com.ktvdb.allen.satrok.R;
 import com.ktvdb.allen.satrok.databinding.FragmentSatelliteLiveBinding;
 import com.ktvdb.allen.satrok.gui.adapters.LiveAdapter;
 import com.ktvdb.allen.satrok.gui.adapters.OnItemClickListener;
+import com.ktvdb.allen.satrok.gui.annotation.FragmnetTitle;
 import com.ktvdb.allen.satrok.model.Advertisement;
 import com.ktvdb.allen.satrok.model.LiveProgram;
 import com.ktvdb.allen.satrok.model.SysDictionary;
@@ -27,6 +28,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
+@FragmnetTitle("卫星直播")
 public class SatelliteLiveFragment extends LevelBaseFragment<FragmentSatelliteLiveBinding> implements RadioGroup.OnCheckedChangeListener,
                                                                                                       LiveListView,
                                                                                                       OnItemClickListener
@@ -87,8 +89,7 @@ public class SatelliteLiveFragment extends LevelBaseFragment<FragmentSatelliteLi
     @Override
     public void setImageAds(List<Advertisement> advertisements)
     {
-        mBinding.adPageView.addAds(advertisements);
-        mBinding.adPageView.startScroll();
+        mBinding.adPageView.setAdvertisements(advertisements);
     }
 
     @Override

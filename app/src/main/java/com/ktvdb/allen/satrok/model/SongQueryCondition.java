@@ -171,4 +171,18 @@ public class SongQueryCondition
     {
         this.categoryID = categoryID;
     }
+
+//    public SongQueryCondition()
+//    {
+//    }
+
+    public SongQueryCondition(String sort,
+                              Direction direction,
+                              SongCategory songCategory, String categoryID)
+    {
+        this.sort = sort;
+        this.direction = direction;
+        this.songCategory = songCategory;
+        this.categoryID = categoryID;
+    }
 }

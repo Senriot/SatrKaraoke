@@ -8,22 +8,20 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.ktvdb.allen.satrok.R;
-import com.ktvdb.allen.satrok.model.PageResponse;
-import com.ktvdb.allen.satrok.model.Song;
+import com.ktvdb.allen.satrok.model.Direction;
 import com.ktvdb.allen.satrok.model.SongQueryCondition;
 import com.ktvdb.allen.satrok.model.SysDictionary;
-import com.ktvdb.allen.satrok.presentation.SongListPresentation;
 
 import java.util.List;
 
-import rx.functions.Action1;
+import rx.Observable;
+import rx.android.app.AppObservable;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SongCategoryListFragment extends SongListFragment
+public class SongCategoryListFragment extends SongListBaseFragment
 {
-
     String id;
 
     @Override
@@ -34,55 +32,42 @@ public class SongCategoryListFragment extends SongListFragment
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState)
-    {
-        super.onActivityCreated(savedInstanceState);
-        mBinding.categoryRadioGroup.removeAllViews();
-//        mPresentation.getCondition().setSongCategory(SongQueryCondition.SongCategory.valueOf(id));
-
-//        mCondition.setSongCategory(SongQueryCondition.SongCategory.valueOf(id));
-//        mCategoryRadioGroup.setOnCheckedChangeListener(this);
-//        mCategoryRadioGroup.removeAllViews();
-//        AppObservable.bindFragment(this, restService.getSongCategory(id))
-//                     .onErrorResumeNext(Observable.<List<SysDictionary>>empty())
-//                     .subscribe(dictionaries -> {
-//                         updateRadioGroup(dictionaries, true);
-//                     });
-    }
-
-    @Override
     protected void init()
     {
-        mPresentation = new SongListPresentation(this);
-        mBinding.listView.setAdapter(mPresentation.getAdapter());
-        mPresentation.getCondition().setSongCategory(SongQueryCondition.SongCategory.valueOf(id));
-        mPresentation.getSongCategory(id);
+
     }
 
     @Override
-    public void updateTabView(List<SysDictionary> tabs)
+    protected void onLoadTabView()
     {
-        super.updateTabView(tabs);
-        if (!tabs.isEmpty())
-        {
-            RadioButton radioButton = (RadioButton) mBinding.categoryRadioGroup
-                    .findViewWithTag(tabs.get(0).getId());
-            radioButton.setChecked(true);
-        }
-
+        mBinding.categoryRadioGroup.removeAllViews();
+        AppObservable.bindFragment(this, mService.getSongCategory(id))
+                     .onErrorResumeNext(Observable.<List<SysDictionary>>empty())
+                     .subscribe(sysDictionaries -> {
+                         int id1 = 100;
+                         for (SysDictionary tab : sysDictionaries)
+                         {
+                             RadioButton radioButton = (RadioButton) getActivity().getLayoutInflater()
+                                                                                  .inflate(R.layout.tab_radiobutton,
+                                                                                           null);
+                             radioButton.setText(tab.getDictName());
+                             radioButton.setId(id1++);
+                             radioButton.setTag(tab.getId());
+                             mBinding.categoryRadioGroup.addView(radioButton);
+                         }
+                         RadioButton radioButton = (RadioButton) mBinding.categoryRadioGroup
+                                 .findViewWithTag(sysDictionaries.get(0).getId());
+                         radioButton.setChecked(true);
+                     });
     }
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId)
     {
-//        super.onCheckedChanged(group, checkedId);
         View view = group.findViewById(checkedId);
-        mPresentation.reloadCateSongs((String) view.getTag());
-//        mPresentation.getCondition().setCategoryID((String) view.getTag());
-//        mPresentation.getCondition().setPage(0);
-//        mPresentation.getAdapter().clear();
-//        mPresentation.onLoadSong(songPageResponse -> mPresentation.getAdapter().add(songPageResponse.getContent()));
-//
-//        onLoadSong();
+        SongQueryCondition condition = new SongQueryCondition("hot", Direction.DESC,
+                                                              SongQueryCondition.SongCategory.valueOf(
+                                                                      id), (String) view.getTag());
+        replacePage(condition);
     }
 }

@@ -74,12 +74,8 @@ public class MovieDetailFragment extends LevelBaseFragment<FragmentMovieDetailBi
                                    restService.geLeftImageAds(configManager.getRoomInfo()
                                                                            .getCode()))
                      .onErrorResumeNext(Observable.<List<Advertisement>>empty())
-                     .subscribe(advertisements -> {
-                         mBinding.adPageView.addAds(advertisements);
-                         mBinding.adPageView.startScroll();
-                     });
+                     .subscribe(mBinding.adImagePage::setAdvertisements);
     }
-
 
     @Override
     public void onDestroyView()

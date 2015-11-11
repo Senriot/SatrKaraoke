@@ -6,6 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.media.AudioManager;
 import android.os.Handler;
 import android.os.Message;
+import android.renderscript.ScriptIntrinsicYuvToRGB;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
@@ -18,11 +19,14 @@ import com.ktvdb.allen.satrok.bind.PlayHubModel;
 import com.ktvdb.allen.satrok.event.OnServiceEvent;
 import com.ktvdb.allen.satrok.event.PlayQueueChengedEvent;
 import com.ktvdb.allen.satrok.event.PlayWhenReadyEvent;
+import com.ktvdb.allen.satrok.event.ShowNextEvent;
 import com.ktvdb.allen.satrok.event.VolumeChangedEvent;
 import com.ktvdb.allen.satrok.gui.MainActivity;
 import com.ktvdb.allen.satrok.gui.views.PopupButton;
 import com.ktvdb.allen.satrok.gui.widget.VolumeControlView;
 import com.ktvdb.allen.satrok.model.Advertisement;
+import com.ktvdb.allen.satrok.model.FullSearchResult;
+import com.ktvdb.allen.satrok.model.Singer;
 import com.ktvdb.allen.satrok.model.Song;
 import com.ktvdb.allen.satrok.presentation.view.MainView;
 import com.ktvdb.allen.satrok.service.MediaPlayer;
@@ -43,6 +47,7 @@ import javax.inject.Inject;
 import autodagger.AutoInjector;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -109,6 +114,12 @@ public class MainPresentation
         playHubModel.setPosition(position);
         playHubModel.setEndTime(TimeUtils.stringForTime(duration));
         playHubModel.setCurrentTime(TimeUtils.stringForTime(position));
+        int p = position / 1000;
+        int d = duration / 1000;
+        if (d - p == 10)
+        {
+            EventBus.getDefault().post(new ShowNextEvent());
+        }
         return position;
     }
 
@@ -315,21 +326,21 @@ public class MainPresentation
     {
         if (event.playWhenReady && event.playbackState == ExoPlayer.STATE_READY)
         {
-            if (mPlayer.getAudioTrackCount() <= 1)
-            {
-                mPlayer.setSelectedTrack(0);
-            }
-            else
-            {
-                if (configManager.getYuanBanFlag() == ConfigManager.FLAG_BAN_CHANG)
-                {
-                    mPlayer.setSelectedTrack(1);
-                }
-                else
-                {
-                    mPlayer.setSelectedTrack(0);
-                }
-            }
+//            if (mPlayer.getAudioTrackCount() <= 1)
+//            {
+//                mPlayer.setSelectedTrack(0);
+//            }
+//            else
+//            {
+//                if (configManager.getYuanBanFlag() == ConfigManager.FLAG_BAN_CHANG)
+//                {
+//                    mPlayer.setSelectedTrack(1);
+//                }
+//                else
+//                {
+//                    mPlayer.setSelectedTrack(0);
+//                }
+//            }
             playHubModel.setSongName(mPlayer.getMedia().getName());
             if (mPlayer.getMedia() instanceof Song)
             {
@@ -404,7 +415,6 @@ public class MainPresentation
                 @Override
                 public void onProgressChanged(int progress, boolean fromUser)
                 {
-                    LogUtils.e(progress);
                     if (fromUser)
                     {
 
@@ -491,5 +501,35 @@ public class MainPresentation
         int height = micPopupWindow.getContentView().getMeasuredHeight();
         int width  = micPopupWindow.getContentView().getMeasuredWidth();
         micPopupWindow.showAsDropDown(view, view.getWidth() / 2 - width / 2, -height);
+    }
+
+    public void onSearch(final String text)
+    {
+        mRestService.fullSearch(text).observeOn(Schedulers.io())
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .onErrorResumeNext(Observable.<FullSearchResult>empty())
+                    .map(fullSearchResult -> {
+                        if (!text.equals(fullSearchResult.getSearchText()))
+                        {
+                            if (!fullSearchResult.getSongs().isEmpty())
+                            {
+                                FullSearchResult.ContentItem<Song> item = new FullSearchResult.ContentItem<>();
+                                item.setTitle("歌曲");
+                                item.setList(fullSearchResult.getSongs());
+                                fullSearchResult.addItem(item);
+                            }
+
+                            if (!fullSearchResult.getSingers().isEmpty())
+                            {
+                                FullSearchResult.ContentItem<Singer> item = new FullSearchResult.ContentItem<>();
+                                item.setTitle("歌星");
+                                item.setList(fullSearchResult.getSingers());
+                                fullSearchResult.addItem(item);
+                            }
+                            return fullSearchResult;
+                        }
+                        return null;
+                    })
+                    .subscribe(mainView::showSearchView);
     }
 }

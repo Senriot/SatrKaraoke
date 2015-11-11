@@ -8,6 +8,19 @@ import java.util.List;
  */
 public class FullSearchResult
 {
+
+    private String searchText;
+
+    public String getSearchText()
+    {
+        return searchText;
+    }
+
+    public void setSearchText(String searchText)
+    {
+        this.searchText = searchText;
+    }
+
     private List<ContentItem> content = new ArrayList<>();
 
     public List<ContentItem> getContent()
@@ -49,7 +62,7 @@ public class FullSearchResult
         content.add(item);
     }
 
-    public static class ContentItem <T>
+    public static class ContentItem<T>
     {
         private String title;
 

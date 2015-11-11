@@ -45,11 +45,11 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="left|bottom"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="30dp"
                 android:background="@color/transparent"
                 android:text="-"
-                android:textSize="30sp"/>
+                android:textSize="30sp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="10dp"/>
 
             <com.rey.material.widget.Button
                 android:id="@+id/btn_jia"
@@ -57,11 +57,11 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="bottom|right"
-                android:layout_marginBottom="5dp"
-                android:layout_marginRight="25dp"
                 android:background="@color/transparent"
                 android:text="+"
-                android:textSize="30sp"/>
+                android:textSize="30sp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="10dp"/>
 
         </FrameLayout>
     </FrameLayout>

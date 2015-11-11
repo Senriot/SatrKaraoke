@@ -12,21 +12,19 @@
 
     </data>
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <SurfaceView
             android:id="@+id/videoView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"/>
+            android:layout_height="match_parent"/>
 
         <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            >
+            android:id="@+id/tisp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <com.ktvdb.allen.satrok.gui.widget.ScrollTextView
                 android:id="@+id/scrollTextView"
@@ -38,7 +36,7 @@
                 app:stTextSize="50"/>
 
             <LinearLayout
-                android:id="@+id/linearLayout"
+                android:id="@+id/text_panle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/scrollTextView"
@@ -72,19 +70,17 @@
             <LinearLayout
                 android:id="@+id/imageAdPanl"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:alpha="0"
-                android:orientation="vertical"
-                android:layout_below="@+id/linearLayout"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                >
+                android:layout_below="@+id/text_panle"
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <com.ktvdb.allen.satrok.gui.widget.AdPageView
                     android:id="@+id/right_iamge"
                     android:layout_width="100dp"
                     android:layout_height="250dp"
                     android:scaleType="centerCrop"
-                    android:visibility="visible"
                     app:placeholderImage="@drawable/ad_200_500"/>
 
                 <com.ktvdb.allen.satrok.gui.widget.AdPageView
@@ -92,21 +88,20 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginTop="20dp"
                     android:scaleType="centerCrop"
-                    android:visibility="visible"
-                    app:placeholderImage="@drawable/ad_158_158"
-                    android:layout_marginTop="20dp"/>
+                    app:placeholderImage="@drawable/ad_158_158"/>
             </LinearLayout>
 
 
             <LinearLayout
+                android:id="@+id/flag_panl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/linearLayout"
+                android:layout_below="@+id/text_panle"
                 android:orientation="vertical"
-                tools:ignore="ContentDescription"
-                android:id="@+id/flag_panl">
+                tools:ignore="ContentDescription">
 
                 <ImageView
                     android:id="@+id/mute_flag"
@@ -151,12 +146,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:visibility="invisible"
-                android:layout_below="@+id/statusFlag"
-                android:layout_centerHorizontal="true"/>
+                android:visibility="visible"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="77dp"/>
 
         </RelativeLayout>
 
-    </RelativeLayout>
+    </FrameLayout>
 </layout>
 

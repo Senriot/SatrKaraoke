@@ -12,8 +12,13 @@ import android.widget.LinearLayout;
 
 import com.fragmentmaster.app.IMasterFragment;
 import com.ktvdb.allen.satrok.R;
+import com.ktvdb.allen.satrok.gui.annotation.FragmnetTitle;
+import com.ktvdb.allen.satrok.utils.FragmnetTitleHelper;
 import com.rey.material.widget.Button;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.lang.reflect.Field;
 import java.util.List;
 
 import butterknife.OnClick;
@@ -23,24 +28,20 @@ import butterknife.OnClick;
  */
 public abstract class LevelBaseFragment<DB extends ViewDataBinding> extends AbstractFragment<DB>
 {
-//    @Bind(R.id.nav_bar)
-//    LinearLayout topBar;
-
-
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState)
     {
-        View               rootView = super.onCreateView(inflater, container, savedInstanceState);
-        final LinearLayout topBar   = (LinearLayout) rootView.findViewById(R.id.nav_bar);
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        assert rootView != null;
+        final LinearLayout topBar = (LinearLayout) rootView.findViewById(R.id.nav_bar);
         rootView.findViewById(R.id.go_back_main).setOnClickListener(v -> {
             for (int i = getFragmentMaster().getFragments().size() - 1; i > 0; i--)
             {
                 IMasterFragment f = getFragmentMaster().getFragments().get(i);
                 if (!(f instanceof MainFragment))
                 {
-//                    getFragmentMaster().finishFragment(f, 0, null);
                     f.finish();
                 }
                 else
@@ -57,7 +58,7 @@ public abstract class LevelBaseFragment<DB extends ViewDataBinding> extends Abst
         for (int i = 1; i < list.size(); i++)
         {
             IMasterFragment fragment = list.get(i);
-            String title = fragment.getRequest().getStringExtra(getString(R.string.fragmnet_name));
+            String title = FragmnetTitleHelper.getFragmnetTitle(getActivity(), fragment);
             Button b = (Button) View.inflate(getActivity(), R.layout.nav_button, null);
             b.setTag(fragment);
             b.setOnClickListener(v -> {
@@ -65,7 +66,6 @@ public abstract class LevelBaseFragment<DB extends ViewDataBinding> extends Abst
                 int index = list.indexOf(fragment1);
                 for (int j = list.size() - 1; j > index; j--)
                 {
-//                    getFragmentMaster().finishFragment(list.get(j), 0, null);
                     list.get(j).finish();
                 }
             });
@@ -73,7 +73,7 @@ public abstract class LevelBaseFragment<DB extends ViewDataBinding> extends Abst
             b.setPadding(30, 0, 30, 0);
             topBar.addView(b, layoutParams);
         }
-        String title = getRequest().getStringExtra(getString(R.string.fragmnet_name));
+        String title = FragmnetTitleHelper.getFragmnetTitle(getActivity(), this);
         Button b     = (Button) View.inflate(getActivity(), R.layout.nav_button, null);
         b.setBackgroundResource(R.drawable.nav_current);
         b.setText(title);

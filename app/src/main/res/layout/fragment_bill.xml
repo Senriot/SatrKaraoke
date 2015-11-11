@@ -31,7 +31,7 @@
                 android:id="@+id/ad_image"
                 android:layout_width="729dp"
                 android:layout_height="wrap_content"
-                app:placeholderImage="@drawable/default_ad"
+                app:placeholderImage="@drawable/ad_729_729"
                 app:placeholderImageScaleType="focusCrop"
                 app:viewAspectRatio="1"/>
 

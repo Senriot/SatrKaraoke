@@ -1,16 +1,20 @@
 package com.ktvdb.allen.satrok.service;
 
 import com.apkfuns.logutils.LogUtils;
+import com.ktvdb.allen.satrok.model.Direction;
 import com.ktvdb.allen.satrok.model.Movie;
 import com.ktvdb.allen.satrok.model.NewokMedia;
+import com.ktvdb.allen.satrok.model.PageResponse;
 import com.ktvdb.allen.satrok.model.PlayActionResult;
 import com.ktvdb.allen.satrok.model.PlayRecord;
 import com.ktvdb.allen.satrok.model.Song;
+import com.ktvdb.allen.satrok.model.SongQueryCondition;
 
 import org.simple.eventbus.EventBus;
 
 import javax.inject.Inject;
 
+import rx.Observable;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -75,6 +79,24 @@ public class PlayRecordService
         service.addPlayAction(record)
                .observeOn(Schedulers.io())
                .subscribeOn(AndroidSchedulers.mainThread())
-               .subscribe(LogUtils::e);
+               .onErrorResumeNext(Observable.<PlayActionResult>empty())
+               .subscribe(playActionResult -> {
+
+               });
+    }
+
+    public void getTempPlayList(int page, Action1<PageResponse<Song>> action)
+    {
+        SongQueryCondition condition = new SongQueryCondition("hot",
+                                                              Direction.DESC,
+                                                              SongQueryCondition.SongCategory.None,
+                                                              null);
+        condition.setPage(page);
+        service.getAllSongs(condition)
+               .observeOn(Schedulers.io())
+               .subscribeOn(AndroidSchedulers.mainThread())
+               .onErrorResumeNext(Observable.<PageResponse<Song>>empty())
+               .subscribe(action);
+
     }
 }

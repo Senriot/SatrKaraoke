@@ -26,13 +26,14 @@
                 android:id="@+id/movie_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:placeholderImage="@drawable/movie_temp"
+                app:placeholderImage="@drawable/singer_def"
                 app:placeholderImageScaleType="focusCrop"
                 app:roundBottomLeft="false"
                 app:roundBottomRight="false"
                 app:roundTopLeft="true"
                 app:roundTopRight="true"
-                app:viewAspectRatio="0.75"/>
+                app:viewAspectRatio="0.75"
+                app:imageUrl="@{movie.img}"/>
 
             <TextView
                 android:id="@+id/movie_name"

@@ -461,6 +461,7 @@ public final class AudioTrack
                 break;
             case 2:
                 channelConfig = AudioFormat.CHANNEL_OUT_STEREO;
+//                channelConfig = AudioFormat.CHANNEL_OUT_FRONT_RIGHT_OF_CENTER;
                 break;
             case 6:
                 channelConfig = AudioFormat.CHANNEL_OUT_5POINT1;

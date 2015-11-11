@@ -1,8 +1,8 @@
 package com.ktvdb.allen.satrok.gui.fragment;
 
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.RadioGroup;
 
@@ -37,9 +37,7 @@ public class SelectedFragment extends LevelBaseFragment<FragmentSelectedBinding>
     {
         super.onActivityCreated(savedInstanceState);
         mBinding.categoryRadioGroup.setOnCheckedChangeListener(this);
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.content, new SelectedPageFragment());
-        transaction.commit();
+        replacePage(new SelectedPageFragment());
     }
 
 
@@ -54,15 +52,18 @@ public class SelectedFragment extends LevelBaseFragment<FragmentSelectedBinding>
     {
         if (checkedId == R.id.rb_selected)
         {
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.content, new SelectedPageFragment());
-            transaction.commit();
+            replacePage(new SelectedPageFragment());
         }
         else
         {
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.content, new PlayedPageFragment());
-            transaction.commit();
+            replacePage(new PlayedPageFragment());
         }
+    }
+
+    public void replacePage(Fragment fragment)
+    {
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.content, fragment);
+        transaction.commit();
     }
 }

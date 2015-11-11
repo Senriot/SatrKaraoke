@@ -28,15 +28,9 @@ public class SearchResultAdapter extends SectionedRecyclerViewAdapter<SearchResu
         SearchResultAdapter.ItemViewHolder, SearchResultAdapter.FooterViewHolder>
 {
 
-    private FullSearchResult searchResult = new FullSearchResult();
+    private FullSearchResult searchResult;
 
     private MediaPlayer mPlayer;
-
-
-    public FullSearchResult getSearchResult()
-    {
-        return searchResult;
-    }
 
     public void setSearchResult(FullSearchResult searchResult)
     {
@@ -49,7 +43,6 @@ public class SearchResultAdapter extends SectionedRecyclerViewAdapter<SearchResu
         this.searchResult = searchResult;
         mPlayer = StarokApplication.getAppContext().getComponent().mediaPlayer();
     }
-
 
     @Override
     protected int getSectionCount()
@@ -138,10 +131,7 @@ public class SearchResultAdapter extends SectionedRecyclerViewAdapter<SearchResu
             holder.binding.songInfo.setVisibility(View.VISIBLE);
             holder.binding.title.setText(s.getName());
             holder.binding.singerName.setText(s.getSingerNames());
-            holder.binding.btnTop.setOnClickListener(v -> {
-                mPlayer.AddFistMedia(s);
-
-            });
+            holder.binding.btnTop.setOnClickListener(v -> mPlayer.AddFistMedia(s));
             holder.binding.btnDelete.setOnClickListener(v -> mPlayer.delMedia(s));
             holder.binding.content.setOnClickListener(v -> mPlayer.addLastMedia(s));
             BindingUtils.songImage(holder.binding.img, s.getId() + "/100/100");

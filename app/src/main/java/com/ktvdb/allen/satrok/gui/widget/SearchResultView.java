@@ -9,23 +9,14 @@ import android.view.LayoutInflater;
 import android.widget.FrameLayout;
 
 import com.ktvdb.allen.satrok.R;
-import com.ktvdb.allen.satrok.StarokApplication;
 import com.ktvdb.allen.satrok.databinding.SearchPopupViewBinding;
 import com.ktvdb.allen.satrok.event.PlayQueueChengedEvent;
 import com.ktvdb.allen.satrok.gui.adapters.SearchResultAdapter;
 import com.ktvdb.allen.satrok.model.FullSearchResult;
-import com.ktvdb.allen.satrok.model.Singer;
-import com.ktvdb.allen.satrok.model.Song;
-import com.ktvdb.allen.satrok.service.RestService;
 import com.truizlop.sectionedrecyclerview.SectionedSpanSizeLookup;
 
-import org.apache.commons.lang3.StringUtils;
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
-
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by Allen on 15/9/13.
@@ -36,9 +27,9 @@ public class SearchResultView extends FrameLayout
 
     SearchResultAdapter mAdapter;
 
-    RestService mService;
 
-    GridLayoutManager layoutManager;
+    GridLayoutManager mLayoutManager;
+
 
     public SearchResultView(Context context)
     {
@@ -58,67 +49,26 @@ public class SearchResultView extends FrameLayout
                                            R.layout.search_popup_view,
                                            this,
                                            true);
-        mService = StarokApplication.getAppContext().getComponent().restService();
     }
 
-    public void onReload(String text)
+    public void setData(FullSearchResult result)
     {
-
-        if (StringUtils.isBlank(text))
+        if (mAdapter == null)
         {
-            stupListView(null);
+            mAdapter = new SearchResultAdapter(result);
+            mLayoutManager = new GridLayoutManager(getContext(), 1);
+            SectionedSpanSizeLookup lookup = new SectionedSpanSizeLookup(mAdapter,
+                                                                         mLayoutManager);
+            mLayoutManager.setSpanSizeLookup(lookup);
+            mBinding.listView.setLayoutManager(mLayoutManager);
+            mBinding.listView.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
         }
         else
         {
-            mService.fullSearch(text).observeOn(Schedulers.io())
-                    .subscribeOn(AndroidSchedulers.mainThread())
-                    .onErrorResumeNext(Observable.<FullSearchResult>empty())
-                    .subscribe(fullSearchResult -> {
-
-                        if (!fullSearchResult.getSongs().isEmpty())
-                        {
-                            FullSearchResult.ContentItem<Song> item = new FullSearchResult.ContentItem<Song>();
-                            item.setTitle("歌曲");
-                            item.setList(fullSearchResult.getSongs());
-                            fullSearchResult.addItem(item);
-                        }
-
-                        if (!fullSearchResult.getSingers().isEmpty())
-                        {
-                            FullSearchResult.ContentItem<Singer> item = new FullSearchResult.ContentItem<Singer>();
-                            item.setTitle("歌星");
-                            item.setList(fullSearchResult.getSingers());
-                            fullSearchResult.addItem(item);
-                        }
-                        stupListView(fullSearchResult);
-                    });
-        }
-    }
-
-    @UiThread
-    private void stupListView(FullSearchResult result)
-    {
-
-        this.post(() -> {
-            if (mAdapter == null)
-            {
-                mAdapter = new SearchResultAdapter(result);
-            }
-            else
-            {
-                mAdapter.setSearchResult(result);
-            }
-            mBinding.listView.setAdapter(mAdapter);
-            if (layoutManager == null)
-            {
-                layoutManager = new GridLayoutManager(getContext(), 1);
-                SectionedSpanSizeLookup lookup = new SectionedSpanSizeLookup(mAdapter,
-                                                                             layoutManager);
-                layoutManager.setSpanSizeLookup(lookup);
-                mBinding.listView.setLayoutManager(layoutManager);
-            }
+            mAdapter.setSearchResult(result);
             mAdapter.notifyDataSetChanged();
-        });
+        }
 
     }
 

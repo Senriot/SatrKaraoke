@@ -3,8 +3,6 @@ package com.ktvdb.allen.satrok.gui.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.text.method.ScrollingMovementMethod;
 import android.widget.RadioGroup;
 
@@ -14,13 +12,9 @@ import com.ktvdb.allen.satrok.databinding.FragmentSingerDetailBinding;
 import com.ktvdb.allen.satrok.gui.MainActivity;
 import com.ktvdb.allen.satrok.model.Album;
 import com.ktvdb.allen.satrok.model.Singer;
-import com.ktvdb.allen.satrok.presentation.SingerDetailPresentation;
 import com.ktvdb.allen.satrok.presentation.view.SingerDetailView;
 import com.ktvdb.allen.satrok.service.RestService;
 import com.ktvdb.allen.satrok.utils.ViewUtils;
-
-import org.simple.eventbus.EventBus;
-import org.simple.eventbus.Subscriber;
 
 import javax.inject.Inject;
 
@@ -67,18 +61,14 @@ public class SingerDetailFragment extends LevelBaseFragment<FragmentSingerDetail
                      .onErrorResumeNext(Observable.<Singer>empty())
                      .subscribe(mBinding::setSinger);
 
-    }
-
-    @Override
-    public void onUserActive()
-    {
         mHandler.postDelayed(this::init, 150);
-
     }
+
+
 
     private void init()
     {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.content, SingerTabSongsFragment.newInstance(mSinger));
         transaction.commit();
     }
@@ -101,13 +91,13 @@ public class SingerDetailFragment extends LevelBaseFragment<FragmentSingerDetail
     {
         if (checkedId == R.id.rb_album)
         {
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
             transaction.replace(R.id.content, SingerTabAlbumsFragment.newInstance(mSinger, this));
             transaction.commit();
         }
         else
         {
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
             transaction.replace(R.id.content, SingerTabSongsFragment.newInstance(mSinger));
             transaction.commit();
         }
