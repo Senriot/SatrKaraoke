@@ -13,3 +13,15 @@ VOD点播系统（设备端）
 
 #### 酒水
 ![酒水](https://karaoke.oss-cn-shanghai.aliyuncs.com/%E9%85%92%E6%B0%B4.png "在这里输入图片标题")
+
+#### 结账
+![结账](https://karaoke.oss-cn-shanghai.aliyuncs.com/%E7%BB%93%E8%B4%A6.png "在这里输入图片标题")
+
+#### 服务
+![服务](https://karaoke.oss-cn-shanghai.aliyuncs.com/%E6%9C%8D%E5%8A%A1.png "在这里输入图片标题")
+
+#### 卫星电影
+![卫星电影](https://karaoke.oss-cn-shanghai.aliyuncs.com/%E5%8D%AB%E6%98%9F%E7%94%B5%E5%BD%B12.png "在这里输入图片标题")
+
+#### 卫星电影1
+![卫星电影1](https://karaoke.oss-cn-shanghai.aliyuncs.com/%E5%8D%AB%E6%98%9F%E7%94%B5%E5%BD%B10.png "在这里输入图片标题")
